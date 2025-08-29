@@ -1,0 +1,30 @@
+2025-07-31 12:03:11.138 | WARNING  | chatchat.server.utils:detect_xf_models:93 - error when connect to xinference server(http://106.54.43.139:9997): Expecting value: line 1 column 1 (char 0)
+2025-07-31 12:03:11.139 | WARNING  | chatchat.server.utils:get_default_llm:189 - default llm model qwen2.5-instruct is not found in available llms, using qwen:7b instead
+2025-07-31 12:03:11.183 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 12:03:11.189 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 12:03:11.194 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 12:03:11.199 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:06:40.336 | WARNING  | chatchat.server.utils:detect_xf_models:93 - error when connect to xinference server(http://106.54.43.139:9997): Expecting value: line 1 column 1 (char 0)
+2025-07-31 14:06:40.337 | WARNING  | chatchat.server.utils:get_default_llm:189 - default llm model qwen2.5-instruct is not found in available llms, using qwen:7b instead
+2025-07-31 14:06:40.374 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:06:40.379 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:06:40.384 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:06:40.389 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:11:33.261 | WARNING  | chatchat.server.utils:detect_xf_models:93 - error when connect to xinference server(http://106.54.43.139:9997): Expecting value: line 1 column 1 (char 0)
+2025-07-31 14:11:33.262 | WARNING  | chatchat.server.utils:get_default_llm:189 - default llm model qwen2.5-instruct is not found in available llms, using qwen:7b instead
+2025-07-31 14:11:33.298 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:11:33.303 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:11:33.307 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:11:33.312 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:38:15.753 | WARNING  | chatchat.server.utils:detect_xf_models:93 - error when connect to xinference server(http://106.54.43.139:9997): Expecting value: line 1 column 1 (char 0)
+2025-07-31 14:38:15.754 | WARNING  | chatchat.server.utils:get_default_llm:189 - default llm model qwen2.5-instruct is not found in available llms, using qwen:7b instead
+2025-07-31 14:38:15.790 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:38:15.795 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:38:15.799 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 14:38:15.804 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 15:41:27.030 | WARNING  | chatchat.server.utils:detect_xf_models:93 - error when connect to xinference server(http://106.54.43.139:9997): Expecting value: line 1 column 1 (char 0)
+2025-07-31 15:41:27.031 | WARNING  | chatchat.server.utils:get_default_llm:189 - default llm model qwen2.5-instruct is not found in available llms, using qwen:7b instead
+2025-07-31 15:41:27.071 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 15:41:27.076 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 15:41:27.081 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
+2025-07-31 15:41:27.086 | WARNING  | chatchat.server.utils:get_default_embedding:201 - default embedding model bge-large-zh-v1.5 is not found in available embeddings, using quentinz/bge-large-zh-v1.5 instead
