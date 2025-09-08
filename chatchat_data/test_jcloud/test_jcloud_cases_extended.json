@@ -1,0 +1,542 @@
+[
+  {
+  "id": "01-1",
+  "question": "当前正在运行的虚拟机数量是多少？",
+  "expected_sql": "SELECT COUNT(*) FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回整数形式的运行中虚拟机总数"
+  },
+  {
+  "id": "01-2",
+  "question": "统计一下现在有多少台虚拟机是处于运行状态的？",
+  "expected_sql": "SELECT COUNT(*) FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回整数形式的运行中虚拟机总数"
+  },
+  {
+  "id": "01-3",
+  "question": "请告诉我活跃状态的虚拟机总共有多少台？",
+  "expected_sql": "SELECT COUNT(*) FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回整数形式的运行中虚拟机总数"
+  },
+  {
+  "id": "02-1",
+  "question": "列出当前所有正在运行的云主机的 vCPU 和内存配置",
+  "expected_sql": "SELECT uuid, vcpus, memory_mb FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回运行中虚拟机的UUID、vCPU和内存配置列表"
+  },
+  {
+  "id": "02-2",
+  "question": "现在有哪些云主机是开着的？把它们的ID、CPU核数和内存大小都列出来",
+  "expected_sql": "SELECT uuid, vcpus, memory_mb FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回运行中虚拟机的UUID、vCPU和内存配置列表"
+  },
+  {
+  "id": "02-3",
+  "question": "查询所有状态为活跃的虚拟机，显示它们的唯一标识符、虚拟CPU数和内存容量",
+  "expected_sql": "SELECT uuid, vcpus, memory_mb FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回运行中虚拟机的UUID、vCPU和内存配置列表"
+  },
+  {
+  "id": "03-1",
+  "question": "2025年5月15日CPU使用率超过90%的云主机有哪些？",
+  "expected_sql": "SELECT DISTINCT vm_uuid FROM vm_cpu_usage_202505 WHERE DATE(check_time) = '2025-05-15' AND cpu_usage > 90 LIMIT 10;",
+  "expected_answer": "返回指定日期CPU峰值>90%的虚拟机ID列表（去重）"
+  },
+  {
+  "id": "03-2",
+  "question": "找出在2025年5月15号那天，哪些云主机的CPU利用率飙到了90%以上？",
+  "expected_sql": "SELECT DISTINCT vm_uuid FROM vm_cpu_usage_202505 WHERE DATE(check_time) = '2025-05-15' AND cpu_usage > 90 LIMIT 10;",
+  "expected_answer": "返回指定日期CPU峰值>90%的虚拟机ID列表（去重）"
+  },
+  {
+  "id": "03-3",
+  "question": "五月十五号当天，有没有哪些虚拟机的CPU使用率一度突破了90%？把它们的ID给我",
+  "expected_sql": "SELECT DISTINCT vm_uuid FROM vm_cpu_usage_202505 WHERE DATE(check_time) = '2025-05-15' AND cpu_usage > 90 LIMIT 10;",
+  "expected_answer": "返回指定日期CPU峰值>90%的虚拟机ID列表（去重）"
+  },
+  {
+  "id": "04-1",
+  "question": "哪些虚拟机的平均CPU使用率长期低于10%？",
+  "expected_sql": "SELECT vm_uuid, AVG(cpu_usage) FROM vm_cpu_usage_202505 GROUP BY vm_uuid HAVING AVG(cpu_usage) < 10 LIMIT 10;",
+  "expected_answer": "返回平均CPU使用率<10%的虚拟机ID及具体数值"
+  },
+  {
+  "id": "04-2",
+  "question": "帮我找找那些CPU老是闲着，平均使用率还不到10%的虚拟机",
+  "expected_sql": "SELECT vm_uuid, AVG(cpu_usage) FROM vm_cpu_usage_202505 GROUP BY vm_uuid HAVING AVG(cpu_usage) < 10 LIMIT 10;",
+  "expected_answer": "返回平均CPU使用率<10%的虚拟机ID及具体数值"
+  },
+  {
+  "id": "04-3",
+  "question": "查询一下平均CPU利用率低于10%的云主机列表，包括它们的ID和平均使用率",
+  "expected_sql": "SELECT vm_uuid, AVG(cpu_usage) FROM vm_cpu_usage_202505 GROUP BY vm_uuid HAVING AVG(cpu_usage) < 10 LIMIT 10;",
+  "expected_answer": "返回平均CPU使用率<10%的虚拟机ID及具体数值"
+  },
+  {
+  "id": "05-1",
+  "question": "2025年5月15日内存使用率最高的前5台云主机是哪几台？",
+  "expected_sql": "SELECT vm_uuid, MAX(mem_usage) FROM vm_mem_usage_202505 WHERE DATE(check_time) = '2025-05-15' GROUP BY vm_uuid ORDER BY MAX(mem_usage) DESC LIMIT 5;",
+  "expected_answer": "返回指定日期内存峰值最高的5台虚拟机ID及峰值"
+  },
+  {
+  "id": "05-2",
+  "question": "五月十五号，哪五台云主机的内存占用率排在前五名？",
+  "expected_sql": "SELECT vm_uuid, MAX(mem_usage) FROM vm_mem_usage_202505 WHERE DATE(check_time) = '2025-05-15' GROUP BY vm_uuid ORDER BY MAX(mem_usage) DESC LIMIT 5;",
+  "expected_answer": "返回指定日期内存峰值最高的5台虚拟机ID及峰值"
+  },
+  {
+  "id": "05-3",
+  "question": "统计2025-05-15当天，内存使用率最高的Top 5虚拟机实例",
+  "expected_sql": "SELECT vm_uuid, MAX(mem_usage) FROM vm_mem_usage_202505 WHERE DATE(check_time) = '2025-05-15' GROUP BY vm_uuid ORDER BY MAX(mem_usage) DESC LIMIT 5;",
+  "expected_answer": "返回指定日期内存峰值最高的5台虚拟机ID及峰值"
+  },
+  {
+  "id": "06-1",
+  "question": "请列出2025年5月使用率波动最大的云主机",
+  "expected_sql": "SELECT vm_uuid, MAX(cpu_usage)-MIN(cpu_usage) AS fluct FROM vm_cpu_usage_202505 WHERE check_time >= '2025-05-01 00:00:00' AND check_time < '2025-06-01 00:00:00' GROUP BY vm_uuid ORDER BY fluct DESC LIMIT 10;",
+  "expected_answer": "返回5月CPU波动值(MAX-MIN)最大的10台虚拟机ID及波动值"
+  },
+  {
+  "id": "06-2",
+  "question": "今年五月份，哪些云主机的CPU使用率跟过山车一样，起伏最大？",
+  "expected_sql": "SELECT vm_uuid, MAX(cpu_usage)-MIN(cpu_usage) AS fluct FROM vm_cpu_usage_202505 WHERE check_time >= '2025-05-01 00:00:00' AND check_time < '2025-06-01 00:00:00' GROUP BY vm_uuid ORDER BY fluct DESC LIMIT 10;",
+  "expected_answer": "返回5月CPU波动值(MAX-MIN)最大的10台虚拟机ID及波动值"
+  },
+  {
+  "id": "06-3",
+  "question": "找出2025年5月期间，CPU利用率最不稳定的10台虚拟机，按波动幅度排序",
+  "expected_sql": "SELECT vm_uuid, MAX(cpu_usage)-MIN(cpu_usage) AS fluct FROM vm_cpu_usage_202505 WHERE check_time >= '2025-05-01 00:00:00' AND check_time < '2025-06-01 00:00:00' GROUP BY vm_uuid ORDER BY fluct DESC LIMIT 10;",
+  "expected_answer": "返回5月CPU波动值(MAX-MIN)最大的10台虚拟机ID及波动值"
+  },
+  {
+  "id": "07-1",
+  "question": "按天展示某台虚拟机的平均CPU使用率变化趋势",
+  "expected_sql": "SELECT DATE(check_time), AVG(cpu_usage) FROM vm_cpu_usage_202505 WHERE vm_uuid = '00012f57-884d-4909-8cf4-93765a943627' GROUP BY DATE(check_time) LIMIT 10;",
+  "expected_answer": "返回指定虚拟机每日平均CPU使用率时序数据"
+  },
+  {
+  "id": "07-2",
+  "question": "我想看ID为00012f57-884d-4909-8cf4-93765a943627的虚拟机，每天的平均CPU使用情况怎么样",
+  "expected_sql": "SELECT DATE(check_time), AVG(cpu_usage) FROM vm_cpu_usage_202505 WHERE vm_uuid = '00012f57-884d-4909-8cf4-93765a943627' GROUP BY DATE(check_time) LIMIT 10;",
+  "expected_answer": "返回指定虚拟机每日平均CPU使用率时序数据"
+  },
+  {
+  "id": "07-3",
+  "question": "给我画一下这个虚拟机00012f57-884d-4909-8cf4-93765a943627的CPU日均使用率曲线图所需的数据",
+  "expected_sql": "SELECT DATE(check_time), AVG(cpu_usage) FROM vm_cpu_usage_202505 WHERE vm_uuid = '00012f57-884d-4909-8cf4-93765a943627' GROUP BY DATE(check_time) LIMIT 10;",
+  "expected_answer": "返回指定虚拟机每日平均CPU使用率时序数据"
+  },
+  {
+  "id": "08-1",
+  "question": "有哪些云主机长时间处于非运行状态？",
+  "expected_sql": "SELECT uuid FROM vm WHERE vm_state != 'active' AND analyze_time >= '2021-05-01 00:00:00' LIMIT 10;",
+  "expected_answer": "返回超过阈值时间未运行的虚拟机ID列表"
+  },
+  {
+  "id": "08-2",
+  "question": "查一下那些不是运行状态的虚拟机，放了很久的那种",
+  "expected_sql": "SELECT uuid FROM vm WHERE vm_state != 'active' AND analyze_time >= '2021-05-01 00:00:00' LIMIT 10;",
+  "expected_answer": "返回超过阈值时间未运行的虚拟机ID列表"
+  },
+  {
+  "id": "08-3",
+  "question": "找出所有非活跃状态并且存在时间较长的云主机实例",
+  "expected_sql": "SELECT uuid FROM vm WHERE vm_state != 'active' AND analyze_time >= '2021-05-01 00:00:00' LIMIT 10;",
+  "expected_answer": "返回超过阈值时间未运行的虚拟机ID列表"
+  },
+  {
+  "id": "09-1",
+  "question": "当前正在运行的云主机共占用了多少内存和vCPU？",
+  "expected_sql": "SELECT SUM(vcpus), SUM(memory_mb) FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回两个聚合值：总vCPU数、总内存(MB)"
+  },
+  {
+  "id": "09-2",
+  "question": "算一下现在所有开着的云主机，总共用了多少核CPU和多大内存？",
+  "expected_sql": "SELECT SUM(vcpus), SUM(memory_mb) FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回两个聚合值：总vCPU数、总内存(MB)"
+  },
+  {
+  "id": "09-3",
+  "question": "统计活跃虚拟机的资源总量：CPU核心总数和内存总量各是多少？",
+  "expected_sql": "SELECT SUM(vcpus), SUM(memory_mb) FROM vm WHERE vm_state = 'active' LIMIT 10;",
+  "expected_answer": "返回两个聚合值：总vCPU数、总内存(MB)"
+  },
+  {
+  "id": "10-1",
+  "question": "哪些云主机在2025年5月15日的平均内存使用率超过80%？",
+  "expected_sql": "SELECT vm_uuid, AVG(mem_usage) FROM vm_mem_usage_202505 WHERE DATE(check_time) = '2025-05-15' GROUP BY vm_uuid HAVING AVG(mem_usage) > 80 LIMIT 10;",
+  "expected_answer": "返回指定日期平均内存使用率>80%的虚拟机ID及具体数值"
+  },
+  {
+  "id": "10-2",
+  "question": "2025年5月15号那天，平均内存占用超过80%的云主机有哪些？",
+  "expected_sql": "SELECT vm_uuid, AVG(mem_usage) FROM vm_mem_usage_202505 WHERE DATE(check_time) = '2025-05-15' GROUP BY vm_uuid HAVING AVG(mem_usage) > 80 LIMIT 10;",
+  "expected_answer": "返回指定日期平均内存使用率>80%的虚拟机ID及具体数值"
+  },
+  {
+  "id": "10-3",
+  "question": "查询在05/15/2025这一天，内存平均使用率高于80%的所有虚拟机",
+  "expected_sql": "SELECT vm_uuid, AVG(mem_usage) FROM vm_mem_usage_202505 WHERE DATE(check_time) = '2025-05-15' GROUP BY vm_uuid HAVING AVG(mem_usage) > 80 LIMIT 10;",
+  "expected_answer": "返回指定日期平均内存使用率>80%的虚拟机ID及具体数值"
+  },
+  {
+  "id": "11-1",
+  "question": "显示2025年4月总费用最高的前5个用户",
+  "expected_sql": "SELECT user_id, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-04-01 00:00:00' AND begin < '2025-05-01 00:00:00' GROUP BY user_id ORDER BY SUM(cost) DESC LIMIT 5;",
+  "expected_answer": "返回费用最高的5个用户ID及总金额"
+  },
+  {
+  "id": "11-2",
+  "question": "去年四月份，谁在云服务上花的钱最多？把前五名列出来",
+  "expected_sql": "SELECT user_id, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-04-01 00:00:00' AND begin < '2025-05-01 00:00:00' GROUP BY user_id ORDER BY SUM(cost) DESC LIMIT 5;",
+  "expected_answer": "返回费用最高的5个用户ID及总金额"
+  },
+  {
+  "id": "11-3",
+  "question": "按用户聚合，找出2025年4月消费金额排名前五的账户",
+  "expected_sql": "SELECT user_id, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-04-01 00:00:00' AND begin < '2025-05-01 00:00:00' GROUP BY user_id ORDER BY SUM(cost) DESC LIMIT 5;",
+  "expected_answer": "返回费用最高的5个用户ID及总金额"
+  },
+  {
+  "id": "12-1",
+  "question": "哪些项目的云资源成本最高？",
+  "expected_sql": "SELECT v.project_id, SUM(r.cost) FROM vm_rated_data_frames r JOIN vm v ON r.payer_id = v.payer_id GROUP BY v.project_id ORDER BY SUM(r.cost) DESC LIMIT 10;",
+  "expected_answer": "返回用户成本最高的5个项目ID及总金额"
+  },
+  {
+  "id": "12-2",
+  "question": "从项目维度看，哪个项目组的云资源开销最大？",
+  "expected_sql": "SELECT v.project_id, SUM(r.cost) FROM vm_rated_data_frames r JOIN vm v ON r.payer_id = v.payer_id GROUP BY v.project_id ORDER BY SUM(r.cost) DESC LIMIT 10;",
+  "expected_answer": "返回用户成本最高的5个项目ID及总金额"
+  },
+  {
+  "id": "12-3",
+  "question": "查询所有项目，并按云资源产生的总费用进行降序排列，显示前十个",
+  "expected_sql": "SELECT v.project_id, SUM(r.cost) FROM vm_rated_data_frames r JOIN vm v ON r.payer_id = v.payer_id GROUP BY v.project_id ORDER BY SUM(r.cost) DESC LIMIT 10;",
+  "expected_answer": "返回用户成本最高的5个项目ID及总金额"
+  },
+  {
+  "id": "13-1",
+  "question": "每种资源类型上分别花了多少钱？",
+  "expected_sql": "SELECT res_type, SUM(cost) FROM vm_rated_data_frames GROUP BY res_type LIMIT 10;",
+  "expected_answer": "返回每种资源类型的总成本列表"
+  },
+  {
+  "id": "13-2",
+  "question": "我们的钱都花在哪些类型的资源上了？每种类型总计多少？",
+  "expected_sql": "SELECT res_type, SUM(cost) FROM vm_rated_data_frames GROUP BY res_type LIMIT 10;",
+  "expected_answer": "返回每种资源类型的总成本列表"
+  },
+  {
+  "id": "13-3",
+  "question": "按资源类型统计总成本支出",
+  "expected_sql": "SELECT res_type, SUM(cost) FROM vm_rated_data_frames GROUP BY res_type LIMIT 10;",
+  "expected_answer": "返回每种资源类型的总成本列表"
+  },
+  {
+  "id": "14-1",
+  "question": "哪些组件的单价最高？",
+  "expected_sql": "SELECT res_type, MAX(unit_cost) FROM vm_rated_data_frames GROUP BY res_type ORDER BY MAX(unit_cost) DESC LIMIT 10;",
+  "expected_answer": "返回最高单价的5个资源类型及价格"
+  },
+  {
+  "id": "14-2",
+  "question": "什么类型的资源最贵？按单价排个序",
+  "expected_sql": "SELECT res_type, MAX(unit_cost) FROM vm_rated_data_frames GROUP BY res_type ORDER BY MAX(unit_cost) DESC LIMIT 10;",
+  "expected_answer": "返回最高单价的5个资源类型及价格"
+  },
+  {
+  "id": "14-3",
+  "question": "找出单位价格最高的资源品类，Top 10",
+  "expected_sql": "SELECT res_type, MAX(unit_cost) FROM vm_rated_data_frames GROUP BY res_type ORDER BY MAX(unit_cost) DESC LIMIT 10;",
+  "expected_answer": "返回最高单价的5个资源类型及价格"
+  },
+  {
+  "id": "15-1",
+  "question": "哪些payer_id在2025年第一季度产生了最多费用？",
+  "expected_sql": "SELECT payer_id, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-01-01 00:00:00' AND begin < '2025-04-01 00:00:00' GROUP BY payer_id ORDER BY SUM(cost) DESC LIMIT 10;",
+  "expected_answer": "返回第一季度费用最高的5个付款方ID"
+  },
+  {
+  "id": "15-2",
+  "question": "统计一下2025年头三个月，哪个付款方付的钱最多",
+  "expected_sql": "SELECT payer_id, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-01-01 00:00:00' AND begin < '2025-04-01 00:00:00' GROUP BY payer_id ORDER BY SUM(cost) DESC LIMIT 10;",
+  "expected_answer": "返回第一季度费用最高的5个付款方ID"
+  },
+  {
+  "id": "15-3",
+  "question": "2025 Q1 期间，按付款方ID分组，消费总额排名前十的是哪些？",
+  "expected_sql": "SELECT payer_id, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-01-01 00:00:00' AND begin < '2025-04-01 00:00:00' GROUP BY payer_id ORDER BY SUM(cost) DESC LIMIT 10;",
+  "expected_answer": "返回第一季度费用最高的5个付款方ID"
+  },
+  {
+  "id": "16-1",
+  "question": "2025年4月用户项目每天的支出趋势",
+  "expected_sql": "SELECT v.project_id, DATE(r.begin), SUM(r.cost) FROM vm_rated_data_frames r JOIN vm v ON r.payer_id = v.payer_id WHERE r.begin >= '2025-04-01 00:00:00' AND r.begin < '2025-05-01 00:00:00' GROUP BY v.project_id, DATE(r.begin) LIMIT 10;",
+  "expected_answer": "返回按项目和日期分组的总成本时序数据"
+  },
+  {
+  "id": "16-2",
+  "question": "我想看四月份每个项目，每天花了多少钱，有什么变化",
+  "expected_sql": "SELECT v.project_id, DATE(r.begin), SUM(r.cost) FROM vm_rated_data_frames r JOIN vm v ON r.payer_id = v.payer_id WHERE r.begin >= '2025-04-01 00:00:00' AND r.begin < '2025-05-01 00:00:00' GROUP BY v.project_id, DATE(r.begin) LIMIT 10;",
+  "expected_answer": "返回按项目和日期分组的总成本时序数据"
+  },
+  {
+  "id": "16-3",
+  "question": "按项目和日期双重分组，查询2025年4月的每日成本明细",
+  "expected_sql": "SELECT v.project_id, DATE(r.begin), SUM(r.cost) FROM vm_rated_data_frames r JOIN vm v ON r.payer_id = v.payer_id WHERE r.begin >= '2025-04-01 00:00:00' AND r.begin < '2025-05-01 00:00:00' GROUP BY v.project_id, DATE(r.begin) LIMIT 10;",
+  "expected_answer": "返回按项目和日期分组的总成本时序数据"
+  },
+  {
+  "id": "17-1",
+  "question": "显示2025年每个月的总账单",
+  "expected_sql": "SELECT DATE_FORMAT(begin, '%Y-%m') AS month, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-01-01 00:00:00' AND begin < '2026-01-01 00:00:00' GROUP BY month ORDER BY month LIMIT 10;",
+  "expected_answer": "返回2025年每月聚合账单金额"
+  },
+  {
+  "id": "17-2",
+  "question": "把2025年每个月总共花了多少钱都列出来",
+  "expected_sql": "SELECT DATE_FORMAT(begin, '%Y-%m') AS month, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-01-01 00:00:00' AND begin < '2026-01-01 00:00:00' GROUP BY month ORDER BY month LIMIT 10;",
+  "expected_answer": "返回2025年每月聚合账单金额"
+  },
+  {
+  "id": "17-3",
+  "question": "月度账单汇总：2025年各个月份的总费用",
+  "expected_sql": "SELECT DATE_FORMAT(begin, '%Y-%m') AS month, SUM(cost) FROM vm_rated_data_frames WHERE begin >= '2025-01-01 00:00:00' AND begin < '2026-01-01 00:00:00' GROUP BY month ORDER BY month LIMIT 10;",
+  "expected_answer": "返回2025年每月聚合账单金额"
+  },
+  {
+  "id": "18-1",
+  "question": "成本超过1万元的资源有哪些？",
+  "expected_sql": "SELECT resource_id, SUM(cost) FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) > 10000 LIMIT 10;",
+  "expected_answer": "返回总成本>1万元的资源ID及金额"
+  },
+  {
+  "id": "18-2",
+  "question": "有没有哪些资源特别烧钱，总花费已经超过1万了？",
+  "expected_sql": "SELECT resource_id, SUM(cost) FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) > 10000 LIMIT 10;",
+  "expected_answer": "返回总成本>1万元的资源ID及金额"
+  },
+  {
+  "id": "18-3",
+  "question": "查询累计成本大于10000元的所有资源",
+  "expected_sql": "SELECT resource_id, SUM(cost) FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) > 10000 LIMIT 10;",
+  "expected_answer": "返回总成本>1万元的资源ID及金额"
+  },
+  {
+  "id": "19-1",
+  "question": "显示每个用户的平均单价和总成本",
+  "expected_sql": "SELECT user_id, AVG(unit_cost), SUM(cost) FROM vm_rated_data_frames GROUP BY user_id LIMIT 10;",
+  "expected_answer": "返回每个用户的单价均值和总成本"
+  },
+  {
+  "id": "19-2",
+  "question": "每个用户平均下来每个单元花多少钱，总共又花了多少？",
+  "expected_sql": "SELECT user_id, AVG(unit_cost), SUM(cost) FROM vm_rated_data_frames GROUP BY user_id LIMIT 10;",
+  "expected_answer": "返回每个用户的单价均值和总成本"
+  },
+  {
+  "id": "19-3",
+  "question": "按用户ID分组统计，计算其平均单位成本和成本总和",
+  "expected_sql": "SELECT user_id, AVG(unit_cost), SUM(cost) FROM vm_rated_data_frames GROUP BY user_id LIMIT 10;",
+  "expected_answer": "返回每个用户的单价均值和总成本"
+  },
+  {
+  "id": "20-1",
+  "question": "哪些组件费用增长最快？",
+  "expected_sql": "SELECT res_type, (june_cost - may_cost)/may_cost as cost_diff FROM (SELECT res_type, SUM(CASE WHEN DATE_FORMAT(begin, '%Y-%m') = '2025-06' THEN cost ELSE 0 END) as june_cost, SUM(CASE WHEN DATE_FORMAT(begin, '%Y-%m') = '2025-05' THEN cost ELSE 0 END) as may_cost FROM vm_rated_data_frames WHERE DATE_FORMAT(begin, '%Y-%m') IN ('2025-05', '2025-06') GROUP BY res_type) monthly WHERE may_cost > 0 ORDER BY cost_diff DESC LIMIT 10;",
+  "expected_answer": "返回资源类型月增长率排序列表"
+  },
+  {
+  "id": "20-2",
+  "question": "比较五六月份，什么类型的资源费用涨得最猛？",
+  "expected_sql": "SELECT res_type, (june_cost - may_cost)/may_cost as cost_diff FROM (SELECT res_type, SUM(CASE WHEN DATE_FORMAT(begin, '%Y-%m') = '2025-06' THEN cost ELSE 0 END) as june_cost, SUM(CASE WHEN DATE_FORMAT(begin, '%Y-%m') = '2025-05' THEN cost ELSE 0 END) as may_cost FROM vm_rated_data_frames WHERE DATE_FORMAT(begin, '%Y-%m') IN ('2025-05', '2025-06') GROUP BY res_type) monthly WHERE may_cost > 0 ORDER BY cost_diff DESC LIMIT 10;",
+  "expected_answer": "返回资源类型月增长率排序列表"
+  },
+  {
+  "id": "20-3",
+  "question": "计算从五月到六月，各类资源的成本环比增长率，并排序",
+  "expected_sql": "SELECT res_type, (june_cost - may_cost)/may_cost as cost_diff FROM (SELECT res_type, SUM(CASE WHEN DATE_FORMAT(begin, '%Y-%m') = '2025-06' THEN cost ELSE 0 END) as june_cost, SUM(CASE WHEN DATE_FORMAT(begin, '%Y-%m') = '2025-05' THEN cost ELSE 0 END) as may_cost FROM vm_rated_data_frames WHERE DATE_FORMAT(begin, '%Y-%m') IN ('2025-05', '2025-06') GROUP BY res_type) monthly WHERE may_cost > 0 ORDER BY cost_diff DESC LIMIT 10;",
+  "expected_answer": "返回资源类型月增长率排序列表"
+  },
+  {
+  "id": "21-1",
+  "question": "哪些云主机 CPU 使用率很低但费用很高？",
+  "expected_sql": "SELECT v.vm_uuid, v.avg_cpu_usage, r.total_cost FROM (SELECT vm_uuid, AVG(cpu_usage) as avg_cpu_usage FROM vm_cpu_usage_202505 GROUP BY vm_uuid HAVING AVG(cpu_usage) < 10) v JOIN (SELECT resource_id, SUM(cost) as total_cost FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) > 1000) r ON v.vm_uuid = r.resource_id ORDER BY r.total_cost DESC LIMIT 10;",
+  "expected_answer": "返回CPU<10%且费用>1000元的虚拟机ID及指标详情"
+  },
+  {
+  "id": "21-2",
+  "question": "找找那些CPU没怎么用，但是钱没少花的云主机",
+  "expected_sql": "SELECT v.vm_uuid, v.avg_cpu_usage, r.total_cost FROM (SELECT vm_uuid, AVG(cpu_usage) as avg_cpu_usage FROM vm_cpu_usage_202505 GROUP BY vm_uuid HAVING AVG(cpu_usage) < 10) v JOIN (SELECT resource_id, SUM(cost) as total_cost FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) > 1000) r ON v.vm_uuid = r.resource_id ORDER BY r.total_cost DESC LIMIT 10;",
+  "expected_answer": "返回CPU<10%且费用>1000元的虚拟机ID及指标详情"
+  },
+  {
+  "id": "21-3",
+  "question": "查询低利用率高消耗的虚拟机：平均CPU使用率低于10%且总成本高于1000元",
+  "expected_sql": "SELECT v.vm_uuid, v.avg_cpu_usage, r.total_cost FROM (SELECT vm_uuid, AVG(cpu_usage) as avg_cpu_usage FROM vm_cpu_usage_202505 GROUP BY vm_uuid HAVING AVG(cpu_usage) < 10) v JOIN (SELECT resource_id, SUM(cost) as total_cost FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) > 1000) r ON v.vm_uuid = r.resource_id ORDER BY r.total_cost DESC LIMIT 10;",
+  "expected_answer": "返回CPU<10%且费用>1000元的虚拟机ID及指标详情"
+  },
+  {
+  "id": "22-1",
+  "question": "哪些资源的单位成本最高？",
+  "expected_sql": "SELECT resource_id, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id ORDER BY unit_cost DESC LIMIT 10;",
+  "expected_answer": "返回单位成本最高的10个资源ID及具体值"
+  },
+  {
+  "id": "22-2",
+  "question": "算一下每个资源，平均每次计费单价是多少？最贵的前十个是哪些？",
+  "expected_sql": "SELECT resource_id, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id ORDER BY unit_cost DESC LIMIT 10;",
+  "expected_answer": "返回单位成本最高的10个资源ID及具体值"
+  },
+  {
+  "id": "22-3",
+  "question": "按资源ID计算其平均单位成本，并降序排列取前十",
+  "expected_sql": "SELECT resource_id, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id ORDER BY unit_cost DESC LIMIT 10;",
+  "expected_answer": "返回单位成本最高的10个资源ID及具体值"
+  },
+  {
+  "id": "23-1",
+  "question": "资源成本是否与CPU使用率成正比？",
+  "expected_sql": "SELECT v.vm_uuid, AVG(v.cpu_usage) as avg_cpu, AVG(r.unit_cost) as avg_unit_cost, COUNT(*) as data_points FROM vm_cpu_usage_202505 v JOIN vm_rated_data_frames r ON v.vm_uuid=r.resource_id GROUP BY v.vm_uuid HAVING COUNT(*) > 5 ORDER BY AVG(v.cpu_usage) DESC LIMIT 10;",
+  "expected_answer": "返回每个资源的成本-使用率相关系数"
+  },
+  {
+  "id": "23-2",
+  "question": "看看那些资源，是不是CPU用得越狠，单价就越高？",
+  "expected_sql": "SELECT v.vm_uuid, AVG(v.cpu_usage) as avg_cpu, AVG(r.unit_cost) as avg_unit_cost, COUNT(*) as data_points FROM vm_cpu_usage_202505 v JOIN vm_rated_data_frames r ON v.vm_uuid=r.resource_id GROUP BY v.vm_uuid HAVING COUNT(*) > 5 ORDER BY AVG(v.cpu_usage) DESC LIMIT 10;",
+  "expected_answer": "返回每个资源的成本-使用率相关系数"
+  },
+  {
+  "id": "23-3",
+  "question": "分析虚拟机CPU平均使用率与其计费单价之间的关系",
+  "expected_sql": "SELECT v.vm_uuid, AVG(v.cpu_usage) as avg_cpu, AVG(r.unit_cost) as avg_unit_cost, COUNT(*) as data_points FROM vm_cpu_usage_202505 v JOIN vm_rated_data_frames r ON v.vm_uuid=r.resource_id GROUP BY v.vm_uuid HAVING COUNT(*) > 5 ORDER BY AVG(v.cpu_usage) DESC LIMIT 10;",
+  "expected_answer": "返回每个资源的成本-使用率相关系数"
+  },
+  {
+  "id": "24-1",
+  "question": "分析某个项目资源利用率和费用的关系",
+  "expected_sql": "SELECT r.res_type, AVG(v.cpu_usage) as avg_cpu, SUM(r.cost) as total_cost FROM vm_rated_data_frames r JOIN vm vm ON r.resource_id=vm.uuid JOIN (SELECT vm_uuid, AVG(cpu_usage) as cpu_usage FROM vm_cpu_usage_202505 GROUP BY vm_uuid) v ON vm.uuid=v.vm_uuid WHERE vm.project_id='93dd9ca5c3d54c7fa3a75f108549627f' GROUP BY r.res_type ORDER BY total_cost DESC LIMIT 10;",
+  "expected_answer": "返回项目内各类资源的平均使用率和总成本"
+  },
+  {
+  "id": "24-2",
+  "question": "项目93dd9ca5c3d54c7fa3a75f108549627f里，不同类型的资源，用的怎么样，花了多少钱？",
+  "expected_sql": "SELECT r.res_type, AVG(v.cpu_usage) as avg_cpu, SUM(r.cost) as total_cost FROM vm_rated_data_frames r JOIN vm vm ON r.resource_id=vm.uuid JOIN (SELECT vm_uuid, AVG(cpu_usage) as cpu_usage FROM vm_cpu_usage_202505 GROUP BY vm_uuid) v ON vm.uuid=v.vm_uuid WHERE vm.project_id='93dd9ca5c3d54c7fa3a75f108549627f' GROUP BY r.res_type ORDER BY total_cost DESC LIMIT 10;",
+  "expected_answer": "返回项目内各类资源的平均使用率和总成本"
+  },
+  {
+  "id": "24-3",
+  "question": "针对特定项目，聚合其内部不同资源类型的CPU利用率和总成本",
+  "expected_sql": "SELECT r.res_type, AVG(v.cpu_usage) as avg_cpu, SUM(r.cost) as total_cost FROM vm_rated_data_frames r JOIN vm vm ON r.resource_id=vm.uuid JOIN (SELECT vm_uuid, AVG(cpu_usage) as cpu_usage FROM vm_cpu_usage_202505 GROUP BY vm_uuid) v ON vm.uuid=v.vm_uuid WHERE vm.project_id='93dd9ca5c3d54c7fa3a75f108549627f' GROUP BY r.res_type ORDER BY total_cost DESC LIMIT 10;",
+  "expected_answer": "返回项目内各类资源的平均使用率和总成本"
+  },
+  {
+  "id": "25-1",
+  "question": "2025年5月有多少资源“未使用”但仍有计费？",
+  "expected_sql": "SELECT COUNT(DISTINCT resource_id) FROM vm_rated_data_frames WHERE resource_id NOT IN (SELECT DISTINCT vm_uuid FROM vm_cpu_usage_202505 WHERE check_time >= '2025-05-01 00:00:00' AND check_time < '2025-06-01 00:00:00') LIMIT 10;",
+  "expected_answer": "返回未使用但计费的资源数量统计"
+  },
+  {
+  "id": "25-2",
+  "question": "五月份有没有那种根本没被用起来，但是还在扣钱的资源？有多少个？",
+  "expected_sql": "SELECT COUNT(DISTINCT resource_id) FROM vm_rated_data_frames WHERE resource_id NOT IN (SELECT DISTINCT vm_uuid FROM vm_cpu_usage_202505 WHERE check_time >= '2025-05-01 00:00:00' AND check_time < '2025-06-01 00:00:00') LIMIT 10;",
+  "expected_answer": "返回未使用但计费的资源数量统计"
+  },
+  {
+  "id": "25-3",
+  "question": "统计在2025年5月期间，存在计费记录但无CPU使用记录的资源数量",
+  "expected_sql": "SELECT COUNT(DISTINCT resource_id) FROM vm_rated_data_frames WHERE resource_id NOT IN (SELECT DISTINCT vm_uuid FROM vm_cpu_usage_202505 WHERE check_time >= '2025-05-01 00:00:00' AND check_time < '2025-06-01 00:00:00') LIMIT 10;",
+  "expected_answer": "返回未使用但计费的资源数量统计"
+  },
+  {
+  "id": "26-1",
+  "question": "按资源计算单位成本并对比同类资源平均水平",
+  "expected_sql": "SELECT t.resource_id, t.unit_cost, a.avg_unit_cost FROM (SELECT resource_id, res_type, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id, res_type) t JOIN (SELECT res_type, AVG(unit_cost) as avg_unit_cost FROM (SELECT resource_id, res_type, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id, res_type) t2 GROUP BY res_type) a ON t.resource_id = a.res_type ORDER BY t.unit_cost DESC LIMIT 10;",
+  "expected_answer": "返回各资源单位成本及同类资源均值"
+  },
+  {
+  "id": "26-2",
+  "question": "每个资源的平均单价是多少？和它同类型的资源平均单价相比怎么样？",
+  "expected_sql": "SELECT t.resource_id, t.unit_cost, a.avg_unit_cost FROM (SELECT resource_id, res_type, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id, res_type) t JOIN (SELECT res_type, AVG(unit_cost) as avg_unit_cost FROM (SELECT resource_id, res_type, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id, res_type) t2 GROUP BY res_type) a ON t.res_type = a.res_type ORDER BY t.unit_cost DESC LIMIT 10;",
+  "expected_answer": "返回各资源单位成本及同类资源均值"
+  },
+  {
+  "id": "26-3",
+  "question": "资源级单位成本与品类平均单位成本的对比分析",
+  "expected_sql": "SELECT t.resource_id, t.unit_cost, a.avg_unit_cost FROM (SELECT resource_id, res_type, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id, res_type) t JOIN (SELECT res_type, AVG(unit_cost) as avg_unit_cost FROM (SELECT resource_id, res_type, SUM(cost)/COUNT(*) AS unit_cost FROM vm_rated_data_frames GROUP BY resource_id, res_type) t2 GROUP BY res_type) a ON t.res_type = a.res_type ORDER BY t.unit_cost DESC LIMIT 10;",
+  "expected_answer": "返回各资源单位成本及同类资源均值"
+  },
+  {
+  "id": "27-1",
+  "question": "哪些项目的资源用量最多却成本偏低？",
+  "expected_sql": "SELECT vm.project_id, SUM(vm.vcpus) as total_vcpus, SUM(r.cost) as total_cost FROM vm JOIN (SELECT resource_id, SUM(cost) as cost FROM vm_rated_data_frames GROUP BY resource_id) r ON vm.uuid=r.resource_id GROUP BY vm.project_id HAVING SUM(vm.vcpus) > 0 ORDER BY SUM(vm.vcpus) DESC LIMIT 10;",
+  "expected_answer": "返回资源使用量高但成本低的项目ID及指标"
+  },
+  {
+  "id": "27-2",
+  "question": "有没有哪些项目，用了一大堆资源，但是没花太多钱？",
+  "expected_sql": "SELECT vm.project_id, SUM(vm.vcpus) as total_vcpus, SUM(r.cost) as total_cost FROM vm JOIN (SELECT resource_id, SUM(cost) as cost FROM vm_rated_data_frames GROUP BY resource_id) r ON vm.uuid=r.resource_id GROUP BY vm.project_id HAVING SUM(vm.vcpus) > 0 ORDER BY SUM(vm.vcpus) DESC LIMIT 10;",
+  "expected_answer": "返回资源使用量高但成本低的项目ID及指标"
+  },
+  {
+  "id": "27-3",
+  "question": "查询项目维度的总vCPU用量和总成本，按用量降序排列",
+  "expected_sql": "SELECT vm.project_id, SUM(vm.vcpus) as total_vcpus, SUM(r.cost) as total_cost FROM vm JOIN (SELECT resource_id, SUM(cost) as cost FROM vm_rated_data_frames GROUP BY resource_id) r ON vm.uuid=r.resource_id GROUP BY vm.project_id HAVING SUM(vm.vcpus) > 0 ORDER BY SUM(vm.vcpus) DESC LIMIT 10;",
+  "expected_answer": "返回资源使用量高但成本低的项目ID及指标"
+  },
+  {
+  "id": "28-1",
+  "question": "哪些云主机内存使用高但总花费很少？",
+  "expected_sql": "SELECT m.vm_uuid, m.avg_mem_usage, r.total_cost FROM (SELECT vm_uuid, AVG(mem_usage) as avg_mem_usage FROM vm_mem_usage_202505 GROUP BY vm_uuid HAVING AVG(mem_usage) > 70) m JOIN (SELECT resource_id, SUM(cost) as total_cost FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) < 500) r ON m.vm_uuid=r.resource_id ORDER BY m.avg_mem_usage DESC LIMIT 10;",
+  "expected_answer": "返回内存>70%且费用<500元的虚拟机ID"
+  },
+  {
+  "id": "28-2",
+  "question": "找找那些内存用的很满，但是总共没花几个钱的虚拟机",
+  "expected_sql": "SELECT m.vm_uuid, m.avg_mem_usage, r.total_cost FROM (SELECT vm_uuid, AVG(mem_usage) as avg_mem_usage FROM vm_mem_usage_202505 GROUP BY vm_uuid HAVING AVG(mem_usage) > 70) m JOIN (SELECT resource_id, SUM(cost) as total_cost FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) < 500) r ON m.vm_uuid=r.resource_id ORDER BY m.avg_mem_usage DESC LIMIT 10;",
+  "expected_answer": "返回内存>70%且费用<500元的虚拟机ID"
+  },
+  {
+  "id": "28-3",
+  "question": "筛选出平均内存使用率高于70%且累计成本低于500元的云主机",
+  "expected_sql": "SELECT m.vm_uuid, m.avg_mem_usage, r.total_cost FROM (SELECT vm_uuid, AVG(mem_usage) as avg_mem_usage FROM vm_mem_usage_202505 GROUP BY vm_uuid HAVING AVG(mem_usage) > 70) m JOIN (SELECT resource_id, SUM(cost) as total_cost FROM vm_rated_data_frames GROUP BY resource_id HAVING SUM(cost) < 500) r ON m.vm_uuid=r.resource_id ORDER BY m.avg_mem_usage DESC LIMIT 10;",
+  "expected_answer": "返回内存>70%且费用<500元的虚拟机ID"
+  },
+  {
+  "id": "29-1",
+  "question": "哪些资源价格变化大（单位价波动大）但使用量平稳？",
+  "expected_sql": "SELECT r.resource_id, MAX(r.unit_cost) - MIN(r.unit_cost) as price_range, AVG(v.cpu_usage) as avg_cpu FROM vm_rated_data_frames r JOIN vm_cpu_usage_202505 v ON r.resource_id=v.vm_uuid GROUP BY r.resource_id HAVING COUNT(*) > 3 ORDER BY price_range DESC LIMIT 10;",
+  "expected_answer": "返回单价波动大但CPU波动<5%的资源ID"
+  },
+  {
+  "id": "29-2",
+  "question": "有没有哪种资源，价格变来变去，但是CPU使用却很稳定？",
+  "expected_sql": "SELECT r.resource_id, MAX(r.unit_cost) - MIN(r.unit_cost) as price_range, AVG(v.cpu_usage) as avg_cpu FROM vm_rated_data_frames r JOIN vm_cpu_usage_202505 v ON r.resource_id=v.vm_uuid GROUP BY r.resource_id HAVING COUNT(*) > 3 ORDER BY price_range DESC LIMIT 10;",
+  "expected_answer": "返回单价波动大但CPU波动<5%的资源ID"
+  },
+  {
+  "id": "29-3",
+  "question": "查询单位成本极差大但平均CPU使用率稳定的资源",
+  "expected_sql": "SELECT r.resource_id, MAX(r.unit_cost) - MIN(r.unit_cost) as price_range, AVG(v.cpu_usage) as avg_cpu FROM vm_rated_data_frames r JOIN vm_cpu_usage_202505 v ON r.resource_id=v.vm_uuid GROUP BY r.resource_id HAVING COUNT(*) > 3 ORDER BY price_range DESC LIMIT 10;",
+  "expected_answer": "返回单价波动大但CPU波动<5%的资源ID"
+  },
+  {
+  "id": "30-1",
+  "question": "帮我找出资源利用率低、计费高、建议释放的资源",
+  "expected_sql": "SELECT r.resource_id, AVG(v.cpu_usage), SUM(r.cost) FROM vm_rated_data_frames r JOIN vm_cpu_usage_202505 v ON r.resource_id=v.vm_uuid WHERE r.begin >= '2025-05-01 00:00:00' AND r.begin < '2025-06-01 00:00:00' GROUP BY r.resource_id HAVING AVG(v.cpu_usage) < 10 AND SUM(r.cost) > 1000 LIMIT 10;",
+  "expected_answer": "返回低利用率(<10%)高成本(>1000元)资源ID及释放建议"
+  },
+  {
+  "id": "30-2",
+  "question": "推荐一些可以关掉的虚拟机：CPU用的少，钱花的多",
+  "expected_sql": "SELECT r.resource_id, AVG(v.cpu_usage), SUM(r.cost) FROM vm_rated_data_frames r JOIN vm_cpu_usage_202505 v ON r.resource_id=v.vm_uuid WHERE r.begin >= '2025-05-01 00:00:00' AND r.begin < '2025-06-01 00:00:00' GROUP BY r.resource_id HAVING AVG(v.cpu_usage) < 10 AND SUM(r.cost) > 1000 LIMIT 10;",
+  "expected_answer": "返回低利用率(<10%)高成本(>1000元)资源ID及释放建议"
+  },
+  {
+  "id": "30-3",
+  "question": "优化建议：筛选出五月份平均CPU利用率低于10%且总成本超过1000元的资源",
+  "expected_sql": "SELECT r.resource_id, AVG(v.cpu_usage), SUM(r.cost) FROM vm_rated_data_frames r JOIN vm_cpu_usage_202505 v ON r.resource_id=v.vm_uuid WHERE r.begin >= '2025-05-01 00:00:00' AND r.begin < '2025-06-01 00:00:00' GROUP BY r.resource_id HAVING AVG(v.cpu_usage) < 10 AND SUM(r.cost) > 1000 LIMIT 10;",
+  "expected_answer": "返回低利用率(<10%)高成本(>1000元)资源ID及释放建议"
+  }
+  ]

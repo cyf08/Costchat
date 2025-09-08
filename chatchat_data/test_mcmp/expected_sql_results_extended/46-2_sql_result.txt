@@ -1,0 +1,10 @@
+问题: 实例类型最丰富的财务单元排名
+问题ID: 46-2
+描述: 识别技术栈最复杂的项目。
+预期SQL: SELECT cost_unit_full_name, COUNT(DISTINCT instance_type) AS type_count FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND instance_type IS NOT NULL GROUP BY cost_unit_full_name ORDER BY type_count DESC LIMIT 1;
+==================================================
+查询结果:
+财务单元 | 产品类型数量 | 操作类型数量 | 总记录数 | 总成本_CNY\
+---------------------------------------\
+Default_Project_AWS_ics_poc | 17 | 87 | 42516 | 812.656788151400000000\
+VENUS-DEMO | 9 | 31 | 4433 | 5219.326726077300000000

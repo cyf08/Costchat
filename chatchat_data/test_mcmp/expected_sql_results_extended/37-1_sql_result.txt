@@ -1,0 +1,58 @@
+问题: 帮我找出今年六月可能已“孤立”的磁盘卷，这些磁盘没有关联到任何虚拟机，但仍在持续计费。
+问题ID: 37-1
+描述: 此查询专门针对最常见的云浪费类型之一：未挂载的磁盘卷。通过筛选出那些没有root_resource_id（通常是虚拟机ID）的磁盘卷计费项，可以非常精确地定位这些“僵尸”资源，它们是最高优先级的清理和降本对象。
+预期SQL: SELECT resource_id, resource_name, SUM(usage_cost) AS orphaned_disk_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND record_type = 'Usage' AND (product_code = 'EC2' AND usage_type LIKE '%EBS:Volume%') AND (root_resource_id IS NULL OR root_resource_id = '') GROUP BY resource_id, resource_name ORDER BY orphaned_disk_cost DESC;
+==================================================
+查询结果:
+cloud_provider_code | account_name | resource_id | resource_name | product_code | operation | total_cost | currency_code | record_count\
+---------------------------------------------------------------------------------------------------------------------------------------\
+AWS | VENUS-DEMO-PRC | vol-08c4539076a7f4332 |  | EC2 | CreateVolume-Gp2 | 66.399999984000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0f32a7e7d08e3bff2 |  | EC2 | CreateVolume-Gp2 | 66.399999984000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-09dd2349ca5dfca62 |  | EC2 | CreateVolume-Gp2 | 66.399999984000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-05aed0f121915c7d8 |  | EC2 | CreateVolume-Gp2 | 37.299999960000000000 | CNY | 30\
+AWS | VENUS-DEMO-PRC | vol-0af69d43bc50d9eed |  | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-04418561a825f38aa | pool1wangningtest | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-09f0076e3d4d9d905 |  | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-08453ee841e48a157 | venusdemowangningtest002 | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0500d0e63010c9f1a |  | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-08d9a2f62e1efd36c |  | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-00b90e11079bdac5a |  | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0f7bb626adfd1c3d7 |  | EC2 | CreateVolume-Gp2 | 33.199999992000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0181e97589415642b |  | EC2 | CreateVolume-Gp2 | 26.560000008000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-09497f5c6e107a357 |  | EC2 | CreateVolume-Gp2 | 26.560000008000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0540b82528ca3d150 |  | EC2 | CreateVolume-Gp2 | 26.560000008000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0bbb5b4d0cf2ee52f |  | EC2 | CreateVolume-Gp2 | 26.560000008000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-0fe54ae875ae6004b |  | EC2 | CreateVolume-Gp2 | 26.560000008000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-070ec3faf72674d2f |  | EC2 | CreateVolume-Gp2 | 22.380000048000000000 | CNY | 30\
+AWS | VENUS-DEMO-PRC | vol-03ecbc485f97cf75f | VENUS-DEMO-CN-Server-Root-Disk | EC2 | CreateVolume-Gp2 | 19.920000024000000000 | CNY | 34\
+AWS | VENUS-DEMO-PRC | vol-02bf20d9462f4fd22 |  | EC2 | CreateVolume-Gp2 | 14.919999984000000000 | CNY | 30\
+AWS | VENUS-DEMO-PRC | vol-0c87dd95414917aed | VenushhrqNuwR | EC2 | CreateVolume-Gp2 | 14.919999984000000000 | CNY | 30\
+AWS | VENUS-DEMO-PRC | vol-05d1916052f7b9f40 |  | EC2 | CreateVolume-Gp2 | 14.919999984000000000 | CNY | 30\
+AWS | VENUS-DEMO-PRC | vol-087caee70e7220043 |  | EC2 | CreateVolume-Gp2 | 14.919999984000000000 | CNY | 30\
+AWS | ICS_POC | arn:aws:sagemaker:ap-southeast-2:652694426588:space/d-ur2goeubjc9z/codecc-test |  | SageMaker | CreateVolume-Gp3 | 13.440000024000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:sagemaker:us-east-1:652694426588:space/d-blmwwz5varnm/CanvasManagedSpace-42e61cd8abbc8da045f76e43477d8bde |  | SageMaker | CreateVolume-Gp3 | 11.200000032000000000 | USD | 30\
+AWS | ICS_POC | aws-cloudtrail-logs-652694426588-d8288bf8 |  | S3 | StandardStorage | 1.283397044500000000 | USD | 30\
+AWS | ICS_POC | arn:aws:sagemaker:ap-southeast-2:652694426588:space/d-ur2goeubjc9z/codecc |  | SageMaker | CreateVolume-Gp3 | 0.671999976000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:ecr:us-east-1:652694426588:repository/all-in-one-ai-stable-diffusion-webui-training-api |  | ECR | TimedStorage-ByteHrs | 0.618795720000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:ecr:us-east-1:652694426588:repository/all-in-one-ai-stable-diffusion-webui-inference-api |  | ECR | TimedStorage-ByteHrs | 0.553894416000000000 | USD | 30\
+AWS | ICS_POC | sagemaker-ap-southeast-2-652694426588 |  | S3 | StandardStorage | 0.480303582000000000 | USD | 30\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:logs:cn-north-1:151763952152:log-group:RDSOSMetrics |  | CloudWatch | HourlyStorageMetering | 0.011787771000000000 | CNY | 29\
+AWS | ICS_POC | checkpoint-vpcflow-bkt |  | S3 | StandardStorage | 0.009821259400000000 | USD | 30\
+AWS | ICS_POC | bedrock-access-logs-bkt |  | S3 | StandardStorage | 0.005396169000000000 | USD | 30\
+AWS | ICS_POC | aws-transcribe-bucket-penglei4 |  | S3 | StandardStorage | 0.003695448000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:logs:us-east-1:652694426588:log-group:RDSOSMetrics |  | CloudWatch | HourlyStorageMetering | 0.001408897100000000 | USD | 26\
+AWS | ICS_POC | aws-poc-billing |  | S3 | StandardStorage | 0.000530100000000000 | USD | 30\
+AWS | ICS_POC | mcm-truscale-tmp |  | S3 | StandardStorage | 0.000078522000000000 | USD | 30\
+AWS | ICS_POC | gaokl4-test |  | S3 | StandardStorage | 0.000033510000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:logs:us-east-1:652694426588:log-group:/aws/sagemaker/studio |  | CloudWatch | HourlyStorageMetering | 0.000032968000000000 | USD | 26\
+AWS | ICS_POC | knowledge-pdk |  | S3 | StandardStorage | 0.000022374000000000 | USD | 30\
+AWS | ICS_POC | amazon-connect-456bc8b705c0 |  | S3 | StandardStorage | 0.000005625000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:elasticfilesystem:ap-southeast-2:652694426588:file-system/fs-0f0fc5a0444ddf26e |  | EFS | Storage | 0.000002016000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:elasticfilesystem:us-east-2:652694426588:file-system/fs-0ce6c6e03298110f0 |  | EFS | Storage | 0.000001728000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:elasticfilesystem:us-east-1:652694426588:file-system/fs-007ff57c1381dbad6 |  | EFS | Storage | 0.000001728000000000 | USD | 30\
+AWS | ICS_POC | arn:aws:logs:us-west-2:652694426588:log-group:/aws/lambda/lenovo-mcot-backup-default |  | CloudWatch | HourlyStorageMetering | 0.000001325300000000 | USD | 26\
+AWS | ICS_POC | arn:aws:logs:us-east-2:652694426588:log-group:/aws/sagemaker/studio |  | CloudWatch | HourlyStorageMetering | 0.000001287000000000 | USD | 26\
+AWS | ICS_POC | cf-templates-1lsx3pqajq9my-us-east-1 |  | S3 | StandardStorage | 8.70000000000E-7 | USD | 30\
+AWS | ICS_POC | amazon-connect-fdc475960a0e |  | S3 | StandardStorage | 4.56000000000E-7 | USD | 30\
+AWS | ICS_POC | cf-templates-1lsx3pqajq9my-us-west-2 |  | S3 | StandardStorage | 3.18000000000E-7 | USD | 30\
+AWS | ICS_POC | amazon-connect-fe50c7ec94c8 |  | S3 | StandardStorage | 2.22000000000E-7 | USD | 30

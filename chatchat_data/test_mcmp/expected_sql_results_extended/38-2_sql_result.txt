@@ -1,0 +1,28 @@
+问题: 六月周末持续运行的资源清单
+问题ID: 38-2
+描述: 识别所有环境中可能忘记关闭的资源。
+预期SQL: SELECT DISTINCT resource_id, resource_name FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND DAYOFWEEK(usage_end_time) IN (1, 7) AND month = '202506' LIMIT 50;
+==================================================
+查询结果:
+cloud_provider_code | account_name | resource_id | resource_name | product_code | operation | total_cost | currency_code | record_count | weekend_type\
+------------------------------------------------------------------------------------------------------------------------------------------------------\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:database-1 |  | RDS | CreateDBInstance | 430.666666668000000000 | CNY | 10 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:database-1 |  | RDS | CreateDBInstance | 344.533333334400000000 | CNY | 8 | 周六\
+AWS | VENUS-DEMO-PRC |  |  | Tax | RDS | 196.420000000000000000 | CNY | 6 | 周日\
+AWS | VENUS-DEMO-PRC |  |  | Tax | EC2 | 72.900000000000000000 | CNY | 9 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7 | VENUS-DEMO-CN-VPC-cn-northwest-1a | EC2 | NatGateway | 44.406000884900000000 | CNY | 10 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa |  | RDS | CreateDBInstance | 43.066666668000000000 | CNY | 10 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest |  | RDS | CreateDBInstance | 39.966666672000000000 | CNY | 10 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7 | VENUS-DEMO-CN-VPC-cn-northwest-1a | EC2 | NatGateway | 35.524796002100000000 | CNY | 9 | 周六\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa |  | RDS | CreateDBInstance | 34.453333334400000000 | CNY | 8 | 周六\
+AWS | ICS_POC | arn:aws:rds:us-east-1:652694426588:db:cmptest0126 |  | RDS | CreateDBInstance | 32.080000003200000000 | USD | 9 | 周日\
+AWS | ICS_POC | arn:aws:rds:us-east-1:652694426588:db:cmptest01261 |  | RDS | CreateDBInstance | 32.080000003200000000 | USD | 9 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest |  | RDS | CreateDBInstance | 31.973333337600000000 | CNY | 8 | 周六\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:test3 |  | RDS | CreateDBInstance | 31.033333332000000000 | CNY | 10 | 周日\
+AWS | VENUS-DEMO-PRC | arn:aws-cn:rds:cn-north-1:151763952152:db:test3 |  | RDS | CreateDBInstance | 24.826666665600000000 | CNY | 8 | 周六\
+AWS | ICS_POC |  |  | GuardDuty | none | 23.149079032500000000 | USD | 20 | 周日\
+AWS | VENUS-DEMO-PRC |  |  | CloudWatch | GetMetricData | 22.309770000000000000 | CNY | 10 | 周日\
+AWS | ICS_POC |  |  | GuardDuty | none | 21.595127123100000000 | USD | 16 | 周六\
+AWS | ICS_POC | arn:aws:rds:us-east-1:652694426588:db:cmptest0126 |  | RDS | CreateDBInstance | 21.386666668800000000 | USD | 6 | 周六\
+AWS | ICS_POC | arn:aws:rds:us-east-1:652694426588:db:cmptest01261 |  | RDS | CreateDBInstance | 21.386666668800000000 | USD | 6 | 周六\
+AWS | VENUS-DEMO-PRC |  |  | CloudWatch | GetMetricData | 18.416594700000000000 | CNY | 8 | 周六

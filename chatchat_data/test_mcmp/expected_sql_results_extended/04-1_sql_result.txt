@@ -1,0 +1,10 @@
+问题: 我在各个云提供商今年六月的花费分别是多少？
+问题ID: 04-1
+描述: 清晰展示在不同云平台上的成本分布。
+预期SQL: SELECT cloud_provider_code, SUM(real_billing_cost) AS total_bill FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' GROUP BY cloud_provider_code;
+==================================================
+查询结果:
+云提供商 | 货币 | 总费用 | 账户数量 | 资源数量\
+-----------------------------\
+AWS | CNY | 5219.326726077300000000 | 1 | 66\
+AWS | USD | 812.656788151400000000 | 1 | 411

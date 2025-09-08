@@ -1,0 +1,10 @@
+问题: 六月各责任人资源费用排序
+问题ID: 18-2
+描述: 将成本责任直接关联到个人。
+预期SQL: SELECT current_resource_user, SUM(real_billing_cost) AS total_bill FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND current_resource_user IS NOT NULL GROUP BY current_resource_user ORDER BY total_bill DESC;
+==================================================
+查询结果:
+负责人 | 货币 | 总费用 | 账户数量 | 资源数量\
+----------------------------\
+未标记负责人 | CNY | 5219.326726077300000000 | 1 | 66\
+未标记负责人 | USD | 812.656788151400000000 | 1 | 411

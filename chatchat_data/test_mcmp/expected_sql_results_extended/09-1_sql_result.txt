@@ -1,0 +1,30 @@
+问题: 我在各个区域（Region）今年六月的成本分布是怎样的？
+问题ID: 09-1
+描述: 分析成本的地理位置分布。
+预期SQL: SELECT region_code, SUM(real_billing_cost) AS total_bill FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND region_code IS NOT NULL GROUP BY region_code ORDER BY total_bill DESC;
+==================================================
+查询结果:
+region_code | currency_code | total_cost | account_count | resource_count\
+-------------------------------------------------------------------------\
+cn-north-1 | CNY | 3790.368019648900000000 | 1 | 22\
+cn-northwest-1 | CNY | 1142.588706428400000000 | 1 | 45\
+us-east-1 | USD | 585.636984422300000000 | 1 | 154\
+ | CNY | 286.370000000000000000 | 1 | 1\
+us-west-2 | USD | 126.409272244300000000 | 1 | 28\
+ap-east-1 | USD | 79.066402104700000000 | 1 | 15\
+ap-southeast-2 | USD | 14.605844282400000000 | 1 | 17\
+us-east-2 | USD | 4.136263310800000000 | 1 | 22\
+ap-southeast-1 | USD | 0.984429851900000000 | 1 | 19\
+sa-east-1 | USD | 0.971532130600000000 | 1 | 14\
+global | USD | 0.500000000000000000 | 1 | 1\
+us-west-1 | USD | 0.228846050700000000 | 1 | 25\
+ap-northeast-1 | USD | 0.012482621800000000 | 1 | 14\
+ap-northeast-2 | USD | 0.012479789500000000 | 1 | 14\
+eu-north-1 | USD | 0.011531779100000000 | 1 | 14\
+ap-northeast-3 | USD | 0.011531621800000000 | 1 | 13\
+ap-south-1 | USD | 0.011531552500000000 | 1 | 13\
+eu-central-1 | USD | 0.011531277800000000 | 1 | 13\
+ca-central-1 | USD | 0.011531277800000000 | 1 | 13\
+eu-west-3 | USD | 0.011531277800000000 | 1 | 13\
+eu-west-2 | USD | 0.011531277800000000 | 1 | 13\
+eu-west-1 | USD | 0.011531277800000000 | 1 | 13

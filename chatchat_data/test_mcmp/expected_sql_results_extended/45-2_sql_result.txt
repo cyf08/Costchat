@@ -1,0 +1,28 @@
+问题: 六月按付费类型分组的资源成本
+问题ID: 45-2
+描述: 分析采购策略的成本构成。
+预期SQL: SELECT purchase_option, SUM(usage_cost) as total_usage_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND purchase_option IS NOT NULL AND month = '202506' AND record_type = 'Usage' GROUP BY purchase_option;
+==================================================
+查询结果:
+operation | record_count\
+------------------------\
+S3:ReadLocation | 17618\
+DescribeKey | 7206\
+S3:ReadCostAllocation | 1302\
+S3:ReadVersioningProps | 1298\
+S3:ReadBucketServerSideEncryption | 1260\
+ReadLocation | 1260\
+ReadVersioningProps | 1234\
+ReadBucketServerSideEncryption | 1230\
+ReadCostAllocation | 1230\
+ReadBucketLifecycle | 1020\
+ReadLogProps | 960\
+ReadACL | 959\
+HeadBucket | 954\
+CreateVolume-Gp2 | 758\
+CreateSnapshot | 625\
+SNS:ListSubscriptions | 600\
+S3:ListAllMyBuckets | 567\
+EC2:RunInstances | 534\
+S3:ReadACL | 511\
+CreateDBInstance | 483

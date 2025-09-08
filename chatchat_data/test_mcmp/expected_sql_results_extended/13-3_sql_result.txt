@@ -1,0 +1,17 @@
+问题: VENUS-DEMO单元按云服务统计六月成本
+问题ID: 13-3
+描述: 深入分析特定项目（财务单元）的云资源消费结构。
+预期SQL: SELECT product_code, SUM(usage_cost) AS service_usage_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND cost_unit_full_name = 'VENUS-DEMO' AND month = '202506' AND record_type = 'Usage' GROUP BY product_code ORDER BY service_usage_cost DESC;
+==================================================
+查询结果:
+服务名称 | 货币 | 总费用 | 账户数量 | 资源数量\
+-----------------------------\
+RDS | CNY | 3274.667494767000000000 | 1 | 5\
+EC2 | CNY | 1343.969105110500000000 | 1 | 37\
+Tax | CNY | 286.370000000000000000 | 1 | 1\
+CloudWatch | CNY | 146.504746156300000000 | 1 | 2\
+ElastiCache | CNY | 144.000000000000000000 | 1 | 2\
+VPC | CNY | 23.760000000000000000 | 1 | 1\
+kms | CNY | 0.028660000000000000 | 1 | 12\
+S3 | CNY | 0.015870600000000000 | 1 | 9\
+DataTransfer | CNY | 0.010849443500000000 | 1 | 18

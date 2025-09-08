@@ -1,0 +1,10 @@
+问题: 对比我今年和去年每月的总费用。
+问题ID: 10-1
+描述: 进行年度同期（Year-over-Year）的成本对比。
+预期SQL: SELECT month, SUM(real_billing_cost) AS total_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88   AND SUBSTRING(CAST(month AS CHAR), 1, 4) IN (YEAR(NOW()), YEAR(NOW()) - 1) GROUP BY month ORDER BY month;
+==================================================
+查询结果:
+year | month | total_cost | currency_code | account_count\
+---------------------------------------------------------\
+2025 | 202506 | 5219.326726077300000000 | CNY | 1\
+2025 | 202506 | 812.656788151400000000 | USD | 1

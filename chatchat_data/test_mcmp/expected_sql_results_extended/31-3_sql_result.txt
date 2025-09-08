@@ -1,0 +1,18 @@
+问题: 获取六月资源使用成本TOP10清单
+问题ID: 31-3
+描述: 识别成本最高的单个资源，是优化的首要目标。
+预期SQL: SELECT resource_id, resource_name, product_code, SUM(usage_cost) AS total_usage_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND record_type = 'Usage' GROUP BY resource_id, resource_name, product_code ORDER BY total_usage_cost DESC LIMIT 10;
+==================================================
+查询结果:
+resource_id | resource_name | cloud_provider_code | account_name | total_cost | currency_code | record_count\
+------------------------------------------------------------------------------------------------------------\
+arn:aws-cn:rds:cn-north-1:151763952152:db:database-1 |  | AWS | VENUS-DEMO-PRC | 2584.000649600300000000 | CNY | 90\
+arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7 | VENUS-DEMO-CN-VPC-cn-northwest-1a | AWS | VENUS-DEMO-PRC | 266.553500801200000000 | CNY | 238\
+arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa |  | AWS | VENUS-DEMO-PRC | 258.400496134200000000 | CNY | 90\
+arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest |  | AWS | VENUS-DEMO-PRC | 239.800757220500000000 | CNY | 90\
+arn:aws-cn:rds:cn-north-1:151763952152:db:test3 |  | AWS | VENUS-DEMO-PRC | 186.200664047500000000 | CNY | 90\
+arn:aws:rds:us-east-1:652694426588:db:cmptest0126 |  | AWS | ICS_POC | 183.501437890300000000 | USD | 91\
+arn:aws:rds:us-east-1:652694426588:db:cmptest01261 |  | AWS | ICS_POC | 183.499987222500000000 | USD | 121\
+i-04fe4dcccfb8e7fd2 | venusdemo1 | AWS | VENUS-DEMO-PRC | 85.177323976900000000 | CNY | 60\
+i-0c49f6a3f6b0fa50b | VenushhrqNuwR | AWS | VENUS-DEMO-PRC | 84.999840953600000000 | CNY | 60\
+i-018426fdb6cf7ba6d | venuststdemo3 | AWS | VENUS-DEMO-PRC | 84.976312582100000000 | CNY | 60

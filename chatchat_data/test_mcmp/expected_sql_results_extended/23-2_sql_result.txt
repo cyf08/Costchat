@@ -1,0 +1,18 @@
+问题: 六月TOP10根资源消费排名
+问题ID: 23-2
+描述: 将子资源费用归集到其根资源上，更宏观地看一个完整应用的总使用成本。
+预期SQL: SELECT root_resource_id, root_resource_product_code, SUM(usage_cost) AS total_usage_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND record_type = 'Usage' AND root_resource_id IS NOT NULL GROUP BY root_resource_id, root_resource_product_code ORDER BY total_usage_cost DESC LIMIT 10
+==================================================
+查询结果:
+应用服务名称 | 总消费 | 货币 | 账户数量 | 资源数量\
+-------------------------------\
+VENUS-DEMO-CN-VPC-cn-northwest-1a | 266.553500801200000000 | CNY | 1 | 1\
+VenushhrqNuwR | 100.464394649600000000 | CNY | 1 | 3\
+venuststdemo3 | 85.213966390100000000 | CNY | 1 | 2\
+venusdemo1 | 85.177323976900000000 | CNY | 1 | 1\
+demoDfMzk | 47.241886944200000000 | CNY | 1 | 1\
+liuhx20-image | 37.962861215900000000 | USD | 1 | 1\
+VENUS-DEMO-CN-Server-2 | 34.488000000000000000 | CNY | 1 | 1\
+venusdemowangningtest002 | 33.199999992000000000 | CNY | 1 | 1\
+pool1wangningtest | 33.199999992000000000 | CNY | 1 | 1\
+Lenovo-AI-Nexus-Application-Testing-Oregon-NatGW | 32.415691684600000000 | USD | 1 | 1

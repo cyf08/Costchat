@@ -1,0 +1,15 @@
+问题: 对于EC2服务，我今年六月不同使用类型（如计算、流量）的费用是多少？
+问题ID: 17-1
+描述: 深入分析单一产品内部的详细计费项。
+预期SQL: SELECT usage_type, SUM(usage_cost) AS usage_type_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND product_code = 'EC2' AND month = '202506' AND record_type = 'Usage' GROUP BY usage_type ORDER BY usage_type_cost DESC;
+==================================================
+查询结果:
+使用类型 | 货币 | 总费用 | 账户数量 | 资源数量\
+-----------------------------\
+CreateVolume-Gp2 | CNY | 736.879999896000000000 | 1 | 23\
+RunInstances | CNY | 336.878068627300000000 | 1 | 5\
+NatGateway | CNY | 266.552515098200000000 | 1 | 1\
+RunInstances | USD | 46.312175100800000000 | 1 | 2\
+NatGateway | USD | 32.412079167300000000 | 1 | 1\
+CreateSnapshot | USD | 21.578987563500000000 | 1 | 95\
+CreateSnapshot | CNY | 3.658521489000000000 | 1 | 8

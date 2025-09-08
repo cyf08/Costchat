@@ -1,0 +1,108 @@
+问题: 六月无环境标签的资源成本明细
+问题ID: 34-2
+描述: 发现标签治理的漏洞，推动资源标签化。
+预期SQL: SELECT resource_id, resource_name, SUM(usage_cost) as usageCost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND (environment IS NULL OR environment = '') AND month = '202506' AND record_type = 'Usage' GROUP BY resource_id, resource_name  having usageCost>0
+==================================================
+查询结果:
+resource_id | resource_name | cloud_provider_code | account_name | total_cost | currency_code | record_count\
+------------------------------------------------------------------------------------------------------------\
+arn:aws-cn:rds:cn-north-1:151763952152:db:database-1 |  | AWS | VENUS-DEMO-PRC | 2584.000649600300000000 | CNY | 90\
+ |  | AWS | VENUS-DEMO-PRC | 437.697129337200000000 | CNY | 299\
+arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7 | VENUS-DEMO-CN-VPC-cn-northwest-1a | AWS | VENUS-DEMO-PRC | 266.553500801200000000 | CNY | 238\
+arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa |  | AWS | VENUS-DEMO-PRC | 258.400496134200000000 | CNY | 90\
+arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest |  | AWS | VENUS-DEMO-PRC | 239.800757220500000000 | CNY | 90\
+ |  | AWS | ICS_POC | 235.566940294000000000 | USD | 2041\
+arn:aws-cn:rds:cn-north-1:151763952152:db:test3 |  | AWS | VENUS-DEMO-PRC | 186.200664047500000000 | CNY | 90\
+arn:aws:rds:us-east-1:652694426588:db:cmptest0126 |  | AWS | ICS_POC | 183.501437890300000000 | USD | 91\
+arn:aws:rds:us-east-1:652694426588:db:cmptest01261 |  | AWS | ICS_POC | 183.499987222500000000 | USD | 121\
+i-04fe4dcccfb8e7fd2 | venusdemo1 | AWS | VENUS-DEMO-PRC | 85.177323976900000000 | CNY | 60\
+i-0c49f6a3f6b0fa50b | VenushhrqNuwR | AWS | VENUS-DEMO-PRC | 84.999840953600000000 | CNY | 60\
+i-018426fdb6cf7ba6d | venuststdemo3 | AWS | VENUS-DEMO-PRC | 84.976312582100000000 | CNY | 60\
+arn:aws-cn:elasticache:cn-northwest-1:151763952152:cluster:venus-demo-cn-redis-01 |  | AWS | VENUS-DEMO-PRC | 72.000000000000000000 | CNY | 30\
+arn:aws-cn:elasticache:cn-northwest-1:151763952152:cluster:venus-demo-cn-redis-02 |  | AWS | VENUS-DEMO-PRC | 72.000000000000000000 | CNY | 30\
+vol-0f32a7e7d08e3bff2 |  | AWS | VENUS-DEMO-PRC | 66.399999984000000000 | CNY | 34\
+vol-09dd2349ca5dfca62 |  | AWS | VENUS-DEMO-PRC | 66.399999984000000000 | CNY | 34\
+vol-08c4539076a7f4332 |  | AWS | VENUS-DEMO-PRC | 66.399999984000000000 | CNY | 34\
+i-09b089f2be315cfbb | demoDfMzk | AWS | VENUS-DEMO-PRC | 47.241886944200000000 | CNY | 60\
+i-0c65d58cd10d40888 | liuhx20-image | AWS | ICS_POC | 37.962861215900000000 | USD | 57\
+vol-05aed0f121915c7d8 |  | AWS | VENUS-DEMO-PRC | 37.299999960000000000 | CNY | 30\
+i-0e39264287a9ed0f7 | VENUS-DEMO-CN-Server-2 | AWS | VENUS-DEMO-PRC | 34.488000000000000000 | CNY | 30\
+vol-09f0076e3d4d9d905 |  | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-04418561a825f38aa | pool1wangningtest | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-08453ee841e48a157 | venusdemowangningtest002 | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-0af69d43bc50d9eed |  | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-00b90e11079bdac5a |  | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-08d9a2f62e1efd36c |  | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-0f7bb626adfd1c3d7 |  | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+vol-0500d0e63010c9f1a |  | AWS | VENUS-DEMO-PRC | 33.199999992000000000 | CNY | 34\
+arn:aws:ec2:us-west-2:652694426588:natgateway/nat-0df0115643fb9f148 | Lenovo-AI-Nexus-Application-Testing-Oregon-NatGW | AWS | ICS_POC | 32.415691684600000000 | USD | 297\
+arn:aws:rds:us-east-1:652694426588:db:finops-test-db |  | AWS | ICS_POC | 27.970820506100000000 | USD | 54\
+vol-0540b82528ca3d150 |  | AWS | VENUS-DEMO-PRC | 26.560000008000000000 | CNY | 34\
+vol-0fe54ae875ae6004b |  | AWS | VENUS-DEMO-PRC | 26.560000008000000000 | CNY | 34\
+vol-0181e97589415642b |  | AWS | VENUS-DEMO-PRC | 26.560000008000000000 | CNY | 34\
+vol-09497f5c6e107a357 |  | AWS | VENUS-DEMO-PRC | 26.560000008000000000 | CNY | 34\
+vol-0bbb5b4d0cf2ee52f |  | AWS | VENUS-DEMO-PRC | 26.560000008000000000 | CNY | 34\
+arn:aws-cn:ec2:cn-northwest-1:151763952152:network-interface/eni-0e0546d7d76edf744 |  | AWS | VENUS-DEMO-PRC | 23.760000000000000000 | CNY | 30\
+vol-070ec3faf72674d2f |  | AWS | VENUS-DEMO-PRC | 22.380000048000000000 | CNY | 30\
+vol-03ecbc485f97cf75f | VENUS-DEMO-CN-Server-Root-Disk | AWS | VENUS-DEMO-PRC | 19.920000024000000000 | CNY | 34\
+arn:aws:ec2:us-west-2:652694426588:snapshot/snap-00d8a2421cf905b82 |  | AWS | ICS_POC | 19.247851563000000000 | USD | 30\
+arn:aws:elasticloadbalancing:us-west-2:652694426588:loadbalancer/app/ai-club-tst/3bbbe83cbf601fe0 |  | AWS | ICS_POC | 16.208551005300000000 | USD | 670\
+vol-087caee70e7220043 |  | AWS | VENUS-DEMO-PRC | 14.919999984000000000 | CNY | 30\
+vol-02bf20d9462f4fd22 |  | AWS | VENUS-DEMO-PRC | 14.919999984000000000 | CNY | 30\
+vol-05d1916052f7b9f40 |  | AWS | VENUS-DEMO-PRC | 14.919999984000000000 | CNY | 30\
+vol-0c87dd95414917aed | VenushhrqNuwR | AWS | VENUS-DEMO-PRC | 14.919999984000000000 | CNY | 30\
+arn:aws:ec2:us-east-1:652694426588:vpc-endpoint/vpce-0e7bfa1d5378c32e7 | s3-interface-demo | AWS | ICS_POC | 14.400000000000000000 | USD | 30\
+arn:aws:sagemaker:ap-southeast-2:652694426588:space/d-ur2goeubjc9z/codecc-test |  | AWS | ICS_POC | 13.440000024000000000 | USD | 30\
+arn:aws:sagemaker:us-east-1:652694426588:space/d-blmwwz5varnm/CanvasManagedSpace-42e61cd8abbc8da045f76e43477d8bde |  | AWS | ICS_POC | 11.200000032000000000 | USD | 30\
+i-04b43963315e73d23 | Venus-Security_log_Monitor | AWS | ICS_POC | 8.356289099300000000 | USD | 206\
+arn:aws:ec2:us-west-2:652694426588:network-interface/eni-04748fd52d6cd08d3 |  | AWS | ICS_POC | 3.600000000000000000 | USD | 30\
+arn:aws:ec2:us-east-1:652694426588:network-interface/eni-0bf7c6ccfc91f20b5 |  | AWS | ICS_POC | 3.600000000000000000 | USD | 30\
+arn:aws-cn:ec2:cn-northwest-1:151763952152:snapshot/snap-08d4c599a51f8e62d |  | AWS | VENUS-DEMO-PRC | 2.218299318000000000 | CNY | 30\
+arn:aws:ec2:us-west-2:652694426588:network-interface/eni-03d4cd1ef795878bc |  | AWS | ICS_POC | 1.864538890000000000 | USD | 16\
+arn:aws:securityhub:ap-east-1:652694426588:hub/default |  | AWS | ICS_POC | 1.860000000000000000 | USD | 30\
+aws-cloudtrail-logs-652694426588-d8288bf8 |  | AWS | ICS_POC | 1.814289643000000000 | USD | 1434\
+arn:aws:ec2:us-west-2:652694426588:network-interface/eni-012fb6764d206e90d |  | AWS | ICS_POC | 1.679651390000000000 | USD | 15\
+arn:aws-cn:logs:cn-north-1:151763952152:log-group:RDSOSMetrics |  | AWS | VENUS-DEMO-PRC | 1.447527756300000000 | CNY | 54\
+arn:aws:kms:us-east-2:652694426588:key/4ec6aa2b-adc0-4302-845d-437102d5f4ce |  | AWS | ICS_POC | 1.001128008000000000 | USD | 89\
+arn:aws:kms:us-east-2:652694426588:key/376bad1c-7ddf-4793-8aa8-9367fdfb7382 |  | AWS | ICS_POC | 1.000000008000000000 | USD | 30\
+arn:aws:kms:us-east-2:652694426588:key/54e2077b-55a5-4938-8201-0652afee2a6f |  | AWS | ICS_POC | 1.000000008000000000 | USD | 30\
+arn:aws:kms:us-west-2:652694426588:key/ed28aaf7-08c6-4bc1-9d45-78e4983ba1b2 |  | AWS | ICS_POC | 0.998350230200000000 | USD | 89\
+arn:aws:kms:us-east-1:652694426588:key/3e3268e6-27d1-400e-ad9b-2982d041123f |  | AWS | ICS_POC | 0.993127674600000000 | USD | 117\
+arn:aws:securityhub:us-east-1:652694426588:hub/default |  | AWS | ICS_POC | 0.960000000000000000 | USD | 30\
+arn:aws:securityhub:ap-southeast-1:652694426588:hub/default |  | AWS | ICS_POC | 0.960000000000000000 | USD | 30\
+arn:aws:securityhub:sa-east-1:652694426588:hub/default |  | AWS | ICS_POC | 0.960000000000000000 | USD | 30\
+arn:aws:sagemaker:ap-southeast-2:652694426588:space/d-ur2goeubjc9z/codecc |  | AWS | ICS_POC | 0.671999976000000000 | USD | 30\
+arn:aws:ecr:us-east-1:652694426588:repository/all-in-one-ai-stable-diffusion-webui-training-api |  | AWS | ICS_POC | 0.618795720000000000 | USD | 30\
+arn:aws:ecr:us-east-1:652694426588:repository/all-in-one-ai-stable-diffusion-webui-inference-api |  | AWS | ICS_POC | 0.553894416000000000 | USD | 30\
+arn:aws-cn:ec2:cn-north-1:151763952152:snapshot/snap-0cff969640a45c9b2 |  | AWS | VENUS-DEMO-PRC | 0.553057617000000000 | CNY | 30\
+arn:aws-cn:ec2:cn-north-1:151763952152:snapshot/snap-00205cc71303c8247 | VenushhrqNuwR | AWS | VENUS-DEMO-PRC | 0.544553712000000000 | CNY | 30\
+arn:aws:route53:::hostedzone/Z06753022DWDNF3Z2Z3T6 |  | AWS | ICS_POC | 0.500000000000000000 | USD | 1\
+sagemaker-ap-southeast-2-652694426588 |  | AWS | ICS_POC | 0.482280644600000000 | USD | 701\
+arn:aws:secretsmanager:us-west-2:652694426588:secret:rds-db-credentials/cluster-NHVAXUE46TFT5L3UPAPKQBEDZU/postgres/1733385972172-5e9FIG |  | AWS | ICS_POC | 0.400000032000000000 | USD | 30\
+arn:aws:secretsmanager:us-west-2:652694426588:secret:AmazonMSK_AINEXUS_MSK-v4rZLV |  | AWS | ICS_POC | 0.400000032000000000 | USD | 30\
+arn:aws:ec2:us-east-2:652694426588:snapshot/snap-048a6a548c9203f28 |  | AWS | ICS_POC | 0.399999999000000000 | USD | 30\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-05630970168c68b06 |  | AWS | ICS_POC | 0.399999999000000000 | USD | 30\
+arn:aws-cn:ec2:cn-north-1:151763952152:snapshot/snap-06a369d09fa7a93c4 | venuststdemo3 | AWS | VENUS-DEMO-PRC | 0.237653808000000000 | CNY | 30\
+arn:aws:ec2:us-east-2:652694426588:snapshot/snap-0dc49109308d0e7d9 |  | AWS | ICS_POC | 0.114916992000000000 | USD | 30\
+checkpoint-vpcflow-bkt |  | AWS | ICS_POC | 0.099216885200000000 | USD | 941\
+arn:aws:ec2:us-east-2:652694426588:snapshot/snap-0015609dbb24e0c07 | venusOZYuk | AWS | ICS_POC | 0.077441406000000000 | USD | 30\
+arn:aws:logs:us-east-1:652694426588:log-group:RDSOSMetrics |  | AWS | ICS_POC | 0.071296858600000000 | USD | 41\
+arn:aws:ec2:us-west-2:652694426588:network-interface/eni-03f6d67581ad6bd31 |  | AWS | ICS_POC | 0.057744445000000000 | USD | 1\
+arn:aws:ec2:us-east-1:652694426588:vpc-flow-log/fl-01dc4e97a2d841363 | lsc_CMP_VRO_TestUseVPC-vpc-full | AWS | ICS_POC | 0.029153871100000000 | USD | 17\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-02c9d06e82104c9c2 |  | AWS | ICS_POC | 0.028945312600000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-05987f5822f7c945d |  | AWS | ICS_POC | 0.028322245300000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0b124b5df33a701e5 |  | AWS | ICS_POC | 0.028076239600000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-036256cbb5ddfb5e1 |  | AWS | ICS_POC | 0.027982109900000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-000166d4dfe237e4e |  | AWS | ICS_POC | 0.027974819600000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-09c23aa23de103d6f |  | AWS | ICS_POC | 0.027973904100000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-03e155f168b82951a |  | AWS | ICS_POC | 0.027958034900000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-04f41b15f862875af |  | AWS | ICS_POC | 0.027957356800000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-03e27cad81a050a0a |  | AWS | ICS_POC | 0.027950744700000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0efcebeea439e0fda |  | AWS | ICS_POC | 0.027950676800000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0ed96083f0edce966 |  | AWS | ICS_POC | 0.027934773700000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0b8c421cdaf42cd1f |  | AWS | ICS_POC | 0.027933417400000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-04c69a4f7cc88f0e0 |  | AWS | ICS_POC | 0.027932366200000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0c53f28e7112b7b41 |  | AWS | ICS_POC | 0.027931891500000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0b70a53344c5b94bb |  | AWS | ICS_POC | 0.027909003400000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-0a1754c88fc849d46 |  | AWS | ICS_POC | 0.027902628500000000 | USD | 3\
+arn:aws:ec2:us-east-1:652694426588:snapshot/snap-05936b80319d7beb1 |  | AWS | ICS_POC | 0.027873467400000000 | USD | 3

@@ -1,0 +1,10 @@
+问题: 六月RI和折扣节约成本统计
+问题ID: 07-2
+描述: 量化成本优化措施带来的价值。
+预期SQL: SELECT SUM(raw_cost - real_billing_cost) AS total_savings FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506';
+==================================================
+查询结果:
+currency_code | on_demand_cost | actual_cost | savings_amount\
+-------------------------------------------------------------\
+CNY | 5219.326726077300000000 | 5219.326726077300000000 | 0E-18\
+USD | 812.656788151400000000 | 812.656788151400000000 | 0E-18

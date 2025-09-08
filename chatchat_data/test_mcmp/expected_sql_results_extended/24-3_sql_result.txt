@@ -1,0 +1,12 @@
+问题: 统计DEMO环境与非DEMO环境的六月使用成本
+问题ID: 24-3
+描述: 对比不同环境的开销，寻找非生产环境的优化机会。
+预期SQL: SELECT environment, SUM(usage_cost) as total_usage_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND environment IN ('DEMO', '') AND month = '202506' AND record_type = 'Usage' GROUP BY environment;
+==================================================
+查询结果:
+环境类型 | 总成本 | 货币 | 账户数量 | 资源数量\
+-----------------------------\
+非DEMO环境 | 4647.532047948900000000 | CNY | 1 | 58\
+非DEMO环境 | 798.231513133000000000 | USD | 1 | 409\
+DEMO环境 | 571.794678128400000000 | CNY | 1 | 8\
+DEMO环境 | 14.425275018400000000 | USD | 1 | 2

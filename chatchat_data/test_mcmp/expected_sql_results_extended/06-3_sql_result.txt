@@ -1,0 +1,10 @@
+问题: 请给我一个今年季度账单的汇总，每季度分别多少？
+问题ID: 06-3
+描述: 按季度汇总成本，适用于季度性的财务报告。
+预期SQL: SELECT CEIL(CAST(SUBSTRING(CAST(month AS CHAR), 5, 2) AS INT) / 3) AS quarter, SUM(real_billing_cost)  AS quarterly_cost FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND SUBSTRING(CAST(month AS CHAR), 1, 4) = YEAR(NOW()) GROUP BY quarter ORDER BY quarter;
+==================================================
+查询结果:
+quarter | currency_code | total_cost | account_count | resource_count\
+---------------------------------------------------------------------\
+2025年第二季度 | CNY | 5219.326726077300000000 | 1 | 66\
+2025年第二季度 | USD | 812.656788151400000000 | 1 | 411

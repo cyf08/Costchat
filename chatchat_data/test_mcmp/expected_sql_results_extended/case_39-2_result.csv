@@ -1,0 +1,21 @@
+﻿cloud_provider_code,account_name,resource_id,resource_name,product_code,operation,total_cost,currency_code,record_count
+AWS,ICS_POC,,,DataTransfer,S3:ListAllMyBuckets,0.390473398000000000,USD,507
+AWS,ICS_POC,aws-poc-billing,,DataTransfer,S3:GetObject,0.014746417800000000,USD,30
+AWS,ICS_POC,arn:aws:elasticloadbalancing:us-west-2:652694426588:loadbalancer/app/ai-club-tst/3bbbe83cbf601fe0,,DataTransfer,ELB:LoadBalancing,0.004464531900000000,USD,371
+AWS,ICS_POC,i-04b43963315e73d23,Venus-Security_log_Monitor,DataTransfer,EC2:RunInstances,0.004286468400000000,USD,145
+AWS,ICS_POC,i-0c65d58cd10d40888,liuhx20-image,DataTransfer,EC2:InterZone-In,0.002319176900000000,USD,19
+AWS,ICS_POC,arn:aws:ec2:us-west-2:652694426588:natgateway/nat-0df0115643fb9f148,Lenovo-AI-Nexus-Application-Testing-Oregon-NatGW,DataTransfer,EC2:InterZone-Out,0.002316548800000000,USD,19
+AWS,VENUS-DEMO-PRC,i-018426fdb6cf7ba6d,venuststdemo3,DataTransfer,EC2:RunInstances,0.001324038200000000,CNY,30
+AWS,VENUS-DEMO-PRC,i-04fe4dcccfb8e7fd2,venusdemo1,DataTransfer,EC2:RunInstances,0.001323976900000000,CNY,30
+AWS,VENUS-DEMO-PRC,i-09b089f2be315cfbb,demoDfMzk,DataTransfer,EC2:RunInstances,0.001323973400000000,CNY,30
+AWS,VENUS-DEMO-PRC,i-0c49f6a3f6b0fa50b,VenushhrqNuwR,DataTransfer,EC2:RunInstances,0.001323841000000000,CNY,30
+AWS,VENUS-DEMO-PRC,arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7,VENUS-DEMO-CN-VPC-cn-northwest-1a,DataTransfer,EC2:RunInstances,0.000985592200000000,CNY,144
+AWS,VENUS-DEMO-PRC,arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest,,DataTransfer,RDS:Not Applicable,0.000757188500000000,CNY,30
+AWS,ICS_POC,arn:aws:ec2:us-west-2:652694426588:natgateway/nat-0df0115643fb9f148,Lenovo-AI-Nexus-Application-Testing-Oregon-NatGW,DataTransfer,EC2:PublicIP-In,0.000728442300000000,USD,31
+AWS,VENUS-DEMO-PRC,arn:aws-cn:rds:cn-north-1:151763952152:db:test3,,DataTransfer,RDS:Not Applicable,0.000664055500000000,CNY,30
+AWS,VENUS-DEMO-PRC,arn:aws-cn:rds:cn-north-1:151763952152:db:database-1,,DataTransfer,RDS:Not Applicable,0.000649592300000000,CNY,30
+AWS,VENUS-DEMO-PRC,arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa,,DataTransfer,RDS:Not Applicable,0.000496126200000000,CNY,30
+AWS,VENUS-DEMO-PRC,,,DataTransfer,S3:ListAllMyBuckets,0.000413261400000000,CNY,60
+AWS,ICS_POC,i-0c65d58cd10d40888,liuhx20-image,DataTransfer,EC2:InterZone-Out,0.000366938200000000,USD,19
+AWS,ICS_POC,arn:aws:ec2:us-west-2:652694426588:natgateway/nat-0df0115643fb9f148,Lenovo-AI-Nexus-Application-Testing-Oregon-NatGW,DataTransfer,EC2:InterZone-In,0.000365379600000000,USD,19
+AWS,ICS_POC,arn:aws:ec2:us-west-2:652694426588:natgateway/nat-0df0115643fb9f148,Lenovo-AI-Nexus-Application-Testing-Oregon-NatGW,DataTransfer,EC2:RunInstances,0.000197047000000000,USD,125

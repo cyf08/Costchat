@@ -1,0 +1,10 @@
+问题: 我今年六月通过预留实例（RI）和各项折扣总共节省了多少钱？
+问题ID: 07-1
+描述: 量化成本优化措施带来的价值。
+预期SQL: SELECT SUM(raw_cost - real_billing_cost) AS total_savings FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506';
+==================================================
+查询结果:
+total_usage_cost | total_real_cost | total_savings | currency_code\
+------------------------------------------------------------------\
+812.656788151400000000 | 812.656788151400000000 | 0E-18 | USD\
+5219.326726077300000000 | 5219.326726077300000000 | 0E-18 | CNY

@@ -1,0 +1,6 @@
+﻿resource_id,resource_name,currency_code,total_usage_cost
+arn:aws-cn:rds:cn-north-1:151763952152:db:database-1,,CNY,2584.000649600300000000
+arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7,VENUS-DEMO-CN-VPC-cn-northwest-1a,CNY,266.553500801200000000
+arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa,,CNY,258.400496134200000000
+arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest,,CNY,239.800757220500000000
+arn:aws-cn:rds:cn-north-1:151763952152:db:test3,,CNY,186.200664047500000000

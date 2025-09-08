@@ -1,0 +1,10 @@
+问题: 六月各部门成本支出排名
+问题ID: 12-2
+描述: 按部门或成本中心聚合账单，是内部成本运营和考核的基础。
+预期SQL: SELECT cost_center_code, cost_center_type, SUM(real_billing_cost) AS total_bill FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND cost_center_code IS NOT NULL GROUP BY cost_center_code, cost_center_type ORDER BY total_bill DESC
+==================================================
+查询结果:
+cost_center_code | currency_code | total_cost | account_count | resource_count\
+------------------------------------------------------------------------------\
+virtual-allocation | CNY | 5219.326726077300000000 | 1 | 66\
+virtual-allocation | USD | 812.656788151400000000 | 1 | 411

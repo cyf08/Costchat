@@ -1,0 +1,10 @@
+问题: 我想看最近一年的月度费用变化情况。
+问题ID: 02-2
+描述: 宏观审视成本的长期变化趋势。
+预期SQL: SELECT month, SUM(real_billing_cost) AS total_bill FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month >= CAST(DATE_FORMAT(date_sub(now(), INTERVAL 12 MONTH), '%Y%m') AS INT) GROUP BY month ORDER BY month;
+==================================================
+查询结果:
+month_period | currency_code | total_cost | account_count | resource_count\
+--------------------------------------------------------------------------\
+2025-06 | CNY | 5219.326726077300000000 | 1 | 66\
+2025-06 | USD | 812.656788151400000000 | 1 | 411

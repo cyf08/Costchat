@@ -1,0 +1,28 @@
+问题: 统计使用最多实例类型的项目
+问题ID: 46-3
+描述: 识别技术栈最复杂的项目。
+预期SQL: SELECT cost_unit_full_name, COUNT(DISTINCT instance_type) AS type_count FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND instance_type IS NOT NULL GROUP BY cost_unit_full_name ORDER BY type_count DESC LIMIT 1;
+==================================================
+查询结果:
+财务单元 | 实例类型 | 使用次数 | 总成本\
+------------------------\
+Default_Project_AWS_ics_poc | DataTransfer | 23668 | 0.423018939700000000\
+Default_Project_AWS_ics_poc | S3 | 9455 | 6.402937338900000000\
+Default_Project_AWS_ics_poc | kms | 7406 | 5.231246928800000000\
+VENUS-DEMO | DataTransfer | 1493 | 0.010849443500000000\
+VENUS-DEMO | EC2 | 1213 | 1343.969105110500000000\
+VENUS-DEMO | S3 | 1020 | 0.015870600000000000\
+Default_Project_AWS_ics_poc | EC2 | 495 | 100.303241831600000000\
+Default_Project_AWS_ics_poc | CloudWatch | 487 | 86.545843237100000000\
+VENUS-DEMO | RDS | 270 | 3274.667494767000000000\
+Default_Project_AWS_ics_poc | RDS | 213 | 397.114188415800000000\
+VENUS-DEMO | kms | 204 | 0.028660000000000000\
+Default_Project_AWS_ics_poc | SecretsManager | 125 | 0.800330064000000000\
+Default_Project_AWS_ics_poc | VPC | 122 | 25.201934725000000000\
+VENUS-DEMO | CloudWatch | 122 | 146.504746156300000000\
+Default_Project_AWS_ics_poc | GuardDuty | 120 | 142.696140775800000000\
+Default_Project_AWS_ics_poc | SecurityHub | 120 | 4.740000000000000000\
+Default_Project_AWS_ics_poc | EFS | 90 | 0.000005472000000000\
+Default_Project_AWS_ics_poc | SageMaker | 90 | 25.312000032000000000\
+Default_Project_AWS_ics_poc | ECR | 60 | 1.172690136000000000\
+VENUS-DEMO | ElastiCache | 60 | 144.000000000000000000

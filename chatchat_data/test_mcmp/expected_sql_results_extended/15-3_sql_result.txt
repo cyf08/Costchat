@@ -1,0 +1,10 @@
+问题: 按环境类型分组统计六月费用
+问题ID: 15-3
+描述: 通过标签对成本进行切分，例如对比生产、测试、开发环境的开销。
+预期SQL: SELECT environment, SUM(real_billing_cost) AS total_bill FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' AND environment IS NOT NULL GROUP BY environment ORDER BY total_bill DESC
+==================================================
+查询结果:
+environment_type | currency_code | total_cost | account_count | resource_count\
+------------------------------------------------------------------------------\
+未标记环境 | CNY | 5219.326726077300000000 | 1 | 66\
+未标记环境 | USD | 812.656788151400000000 | 1 | 411
