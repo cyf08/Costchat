@@ -1,6 +1,6 @@
-﻿resource_id,resource_name,product_code,operation,total_cost,record_count,account_name,region_code
-arn:aws-cn:rds:cn-north-1:151763952152:db:database-1,,RDS,CreateDBInstance,2584.000000008000000000,60,VENUS-DEMO-PRC,cn-north-1
-arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7,VENUS-DEMO-CN-VPC-cn-northwest-1a,EC2,NatGateway,266.552515098200000000,65,VENUS-DEMO-PRC,cn-northwest-1
-arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa,,RDS,CreateDBInstance,258.400000008000000000,60,VENUS-DEMO-PRC,cn-north-1
-arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest,,RDS,CreateDBInstance,239.800000032000000000,60,VENUS-DEMO-PRC,cn-north-1
-,,Tax,RDS,196.420000000000000000,6,VENUS-DEMO-PRC,
+﻿resource_id,resource_name,product_code,operation,total_cost,currency_code,region_code
+arn:aws-cn:rds:cn-north-1:151763952152:db:database-1,,RDS,CreateDBInstance,2584.000000008000000000,CNY,cn-north-1
+arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7,VENUS-DEMO-CN-VPC-cn-northwest-1a,EC2,NatGateway,266.552515098200000000,CNY,cn-northwest-1
+arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa,,RDS,CreateDBInstance,258.400000008000000000,CNY,cn-north-1
+arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest,,RDS,CreateDBInstance,239.800000032000000000,CNY,cn-north-1
+,,Tax,RDS,196.420000000000000000,CNY,
