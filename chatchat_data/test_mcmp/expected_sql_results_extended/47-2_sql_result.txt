@@ -1,9 +1,0 @@
-问题: 六月头部1%高消费资源的归属分析
-问题ID: 47-2
-描述: 应用帕累托法则，重点关注头部高消费资源及其归属。
-预期SQL: WITH RankedResources AS (SELECT resource_id,  SUM(usage_cost)  as cost,  NTILE(100) OVER (ORDER BY SUM(usage_cost) DESC) as percentile  FROM mcmp_cost_tst.billing_item_monthly  WHERE tenant_id = 88  AND record_type = 'Usage'  AND month = '202506'  GROUP BY resource_id) SELECT DISTINCT rr.resource_id, m.cost_unit_full_name, rr.cost FROM RankedResources rr JOIN mcmp_cost_tst.billing_item_monthly m ON rr.resource_id = m.resource_id WHERE rr.percentile = 1 AND m.tenant_id = 88
-==================================================
-查询结果:
-total_records | unique_resources | total_cost | min_cost | max_cost\
--------------------------------------------------------------------\
-46949 | 476 | 6031.983514228700000000 | 4.00000000E-10 | 144.720000000000000000

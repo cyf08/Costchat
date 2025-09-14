@@ -1,9 +1,0 @@
-问题: 查找在一天内有多种不同操作类型计费的复杂资源。
-问题ID: 48-1
-描述: 复杂计费模式的资源可能隐藏着优化机会。
-预期SQL: SELECT resource_id, DATE(usage_end_time), COUNT(DISTINCT operation) AS op_count FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND month = '202506' and resource_id !='' GROUP BY resource_id, DATE(usage_end_time) HAVING op_count > 5 ORDER BY op_count DESC LIMIT 10;
-==================================================
-查询结果:
-财务单元 | 资源数量 | 总成本_CNY | 平均成本_CNY | 最高成本_CNY | 最低成本_CNY\
-------------------------------------------------------\
-virtual-allocation | 46949 | 6031.983514228700000000 | 0.128479488684076338 | 144.720000000000000000 | 4.00000000E-10

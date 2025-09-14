@@ -1,9 +1,0 @@
-问题: 六月独立核算成本中心的总额
-问题ID: 26-2
-描述: 了解独立核算单元的成本体量。
-预期SQL: SELECT SUM(real_billing_cost) FROM mcmp_cost_tst.billing_item_monthly WHERE tenant_id = 88 AND cost_independent = 1 AND month = '202506';
-==================================================
-查询结果:
-cost_center_code | record_count | total_cost\
---------------------------------------------\
-virtual-allocation | 46949 | 6031.983514228700000000
