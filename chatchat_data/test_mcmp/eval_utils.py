@@ -106,7 +106,7 @@ def number_match(pred, gold, percentage=False, precision=4, conj="or"):
 
     
 
-def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
+def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False, return_debug_info=False):
 
     tolerance = 1e-2
 
@@ -238,6 +238,20 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     if gold_sort_key is None:
         # print("DEBUG: No suitable sort key found, falling back to pure column matching")
         # 如果没有找到合适的键，退化为纯列值匹配
+        
+        # 设置pandas显示选项以显示完整列信息
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        
+        print(f"DEBUG: Gold sorted:\n{gold_cols}")
+        print(f"DEBUG: Pred sorted:\n{pred}")
+        
+        # 恢复默认显示设置
+        pd.reset_option('display.max_columns')
+        pd.reset_option('display.width')
+        pd.reset_option('display.max_colwidth')
+        
         t_gold_list = gold_cols.transpose().values.tolist()
         t_pred_list = pred.transpose().values.tolist()
         score = 1
@@ -248,6 +262,9 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
                 for j, pred_vec in enumerate(t_pred_list):
                     if vectors_match(gold_vec, pred_vec, ignore_order_=True):
                         break
+        
+        if return_debug_info:
+            return score, "no_sort_key"
         return score
     
     # 在 pred 中找到对应的排序键
@@ -260,6 +277,20 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     if pred_sort_key is None:
         # print("DEBUG: No matching column found, falling back to pure column matching")
         # 如果找不到匹配的列，退化为纯列值匹配
+        
+        # 设置pandas显示选项以显示完整列信息
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        
+        print(f"DEBUG: Gold sorted:\n{gold_cols}")
+        print(f"DEBUG: Pred sorted:\n{pred}")
+        
+        # 恢复默认显示设置
+        pd.reset_option('display.max_columns')
+        pd.reset_option('display.width')
+        pd.reset_option('display.max_colwidth')
+        
         t_gold_list = gold_cols.transpose().values.tolist()
         t_pred_list = pred.transpose().values.tolist()
         score = 1
@@ -270,6 +301,9 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
                 for j, pred_vec in enumerate(t_pred_list):
                     if vectors_match(gold_vec, pred_vec, ignore_order_=True):
                         break
+        
+        if return_debug_info:
+            return score, "no_matching_column"
         return score
     
     # 按排序键对齐两边的数据
@@ -279,8 +313,18 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
         gold_sorted = gold_cols.sort_values(by=gold_sort_key).reset_index(drop=True)
         pred_sorted = pred.sort_values(by=pred_sort_key).reset_index(drop=True)
         
+        # 设置pandas显示选项以显示完整列信息
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        
         print(f"DEBUG: Gold sorted:\n{gold_sorted}")
         print(f"DEBUG: Pred sorted:\n{pred_sorted}")
+        
+        # 恢复默认显示设置
+        pd.reset_option('display.max_columns')
+        pd.reset_option('display.width')
+        pd.reset_option('display.max_colwidth')
         
         # 现在进行列值匹配，但不需要忽略顺序了
         t_gold_list = gold_sorted.transpose().values.tolist()
@@ -302,14 +346,30 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
                 # else:
                 #     print(f"DEBUG:   NOT MATCHED")
             if not matched:
-                print(f"DEBUG: Gold vector {i} has no match, score = 0")
+                # print(f"DEBUG: Gold vector {i} has no match, score = 0")
                 score = 0
                 break
-        print(f"DEBUG: Final score: {score}")
+        # print(f"DEBUG: Final score: {score}")
+        if return_debug_info:
+            return score, "sort_success"
         return score
     except Exception as e:
-        # print(f"DEBUG: Sorting failed: {e}, falling back to pure column matching")
+        print(f"DEBUG: Sorting failed: {e}, falling back to pure column matching")
         # 如果排序失败，退化为纯列值匹配
+        
+        # 设置pandas显示选项以显示完整列信息
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        
+        print(f"DEBUG: Gold sorted:\n{gold_cols}")
+        print(f"DEBUG: Pred sorted:\n{pred}")
+        
+        # 恢复默认显示设置
+        pd.reset_option('display.max_columns')
+        pd.reset_option('display.width')
+        pd.reset_option('display.max_colwidth')
+        
         t_gold_list = gold_cols.transpose().values.tolist()
         t_pred_list = pred.transpose().values.tolist()
         score = 1
@@ -320,6 +380,10 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
                 for j, pred_vec in enumerate(t_pred_list):
                     if vectors_match(gold_vec, pred_vec, ignore_order_=True):
                         break
+        
+        print(f"DEBUG: Final score: {score}")
+        if return_debug_info:
+            return score, "sort_failed"
         return score
     
     # 原来的键列对齐逻辑（已注释）
@@ -385,35 +449,51 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     # return 1
     
 
-def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_ignore_order=False):
+def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_ignore_order=False, return_debug_info=False):
     if multi_condition_cols == [] or multi_condition_cols == [[]] or multi_condition_cols == [None] or multi_condition_cols == None:
         multi_condition_cols = [[] for _ in range(len(multi_gold))]
     multi_ignore_order = [multi_ignore_order for _ in range(len(multi_gold))]
     
     for i, gold in enumerate(multi_gold):
-        if compare_pandas_table(pred, gold, multi_condition_cols[i], multi_ignore_order[i]):
-            return 1
+        if return_debug_info:
+            score, debug_info = compare_pandas_table(pred, gold, multi_condition_cols[i], multi_ignore_order[i], return_debug_info)
+            if score == 1:
+                return 1, debug_info
+        else:
+            if compare_pandas_table(pred, gold, multi_condition_cols[i], multi_ignore_order[i]):
+                return 1
+    if return_debug_info:
+        return 0, "multi_no_match"
     return 0
 
 
-def table_match(result: str, gold, condition_cols=[], ignore_order=False) -> float:
+def table_match(result: str, gold, condition_cols=[], ignore_order=False, return_debug_info=False):
     """ 
     @args:
         result (str):
         gold (str|List):
         condition_cols (List[int])
         ignore_order (bool)
+        return_debug_info (bool)
     """
     df1 = pd.read_csv(result, low_memory=False)
     
     if isinstance(gold, str):
         df2 = pd.read_csv(gold, low_memory=False)
-        score = compare_pandas_table(df1, df2, condition_cols=condition_cols, ignore_order=ignore_order)
+        if return_debug_info:
+            score, debug_info = compare_pandas_table(df1, df2, condition_cols=condition_cols, ignore_order=ignore_order, return_debug_info=True)
+            return score, debug_info
+        else:
+            score = compare_pandas_table(df1, df2, condition_cols=condition_cols, ignore_order=ignore_order)
+            return score
     elif isinstance(gold, List):
         df_list = [pd.read_csv(g, low_memory=False) for g in gold]
-        score = compare_multi_pandas_table(df1, df_list, multi_condition_cols=condition_cols, multi_ignore_order=ignore_order)
-    
-    return score
+        if return_debug_info:
+            score, debug_info = compare_multi_pandas_table(df1, df_list, multi_condition_cols=condition_cols, multi_ignore_order=ignore_order, return_debug_info=True)
+            return score, debug_info
+        else:
+            score = compare_multi_pandas_table(df1, df_list, multi_condition_cols=condition_cols, multi_ignore_order=ignore_order)
+            return score
 
 
 
@@ -479,7 +559,7 @@ def duckdb_match(result: str, gold: str, condition_tabs=None, condition_cols: Li
     return 1
 
 
-def tables_match(result: List[str], gold: List[str], condition_cols: List[List[int]]=None, ignore_orders: List[bool]=None):
+def tables_match(result: List[str], gold: List[str], condition_cols: List[List[int]]=None, ignore_orders: List[bool]=None, return_debug_info=False):
     """
     Parameters:
     - result (Lstr): Path to the result tables.
@@ -517,9 +597,16 @@ def tables_match(result: List[str], gold: List[str], condition_cols: List[List[i
         # print(f"DEBUG: Pred table: {pred_table}")
         # print(f"DEBUG: Condition cols: {condition_cols[i]}")
         # print(f"DEBUG: Ignore orders: {ignore_orders[i]}")
-        if not compare_pandas_table(pred_table, gold_table, condition_cols=condition_cols[i], ignore_order=ignore_orders[i]):
-            return 0
+        if return_debug_info:
+            score, debug_info = compare_pandas_table(pred_table, gold_table, condition_cols=condition_cols[i], ignore_order=ignore_orders[i], return_debug_info=True)
+            if score == 0:
+                return 0, debug_info
+        else:
+            if not compare_pandas_table(pred_table, gold_table, condition_cols=condition_cols[i], ignore_order=ignore_orders[i]):
+                return 0
         
+    if return_debug_info:
+        return 1, "all_tables_match"
     return 1
 
     

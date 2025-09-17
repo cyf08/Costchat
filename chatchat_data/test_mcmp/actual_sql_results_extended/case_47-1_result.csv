@@ -1,0 +1,3 @@
+﻿cost_unit_id,cost_unit_full_name,cost_unit_code,currency_code,resource_count,total_usage_cost,total_billing_cost,avg_usage_cost
+105872,VENUS-DEMO,VENUS-DEMO,CNY,4412,4932.956726077300000000,4932.956726077300000000,1.118077227125407978
+103262,Default_Project_AWS_ics_poc,Default_Project_AWS_ics_poc,USD,42516,812.656788151400000000,812.656788151400000000,0.019114140280162762

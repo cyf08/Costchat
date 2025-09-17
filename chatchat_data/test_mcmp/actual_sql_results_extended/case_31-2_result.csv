@@ -1,0 +1,11 @@
+﻿resource_id,resource_name,product_code,region_code,currency_code,total_usage_cost,total_usage_amount,usage_unit
+arn:aws-cn:rds:cn-north-1:151763952152:db:database-1,,RDS,cn-north-1,CNY,2412.000000000000000000,720.000000000000000000,Hrs
+arn:aws-cn:ec2:cn-northwest-1:151763952152:natgateway/nat-0ed3b6da7163e7ab7,VENUS-DEMO-CN-VPC-cn-northwest-1a,EC2,cn-northwest-1,CNY,266.400000000000000000,720.000000000000000000,Hrs
+arn:aws-cn:rds:cn-north-1:151763952152:db:wangningtest,,RDS,cn-north-1,CNY,172.800000000000000000,720.000000000000000000,Hrs
+arn:aws-cn:rds:cn-north-1:151763952152:db:test3,,RDS,cn-north-1,CNY,172.800000000000000000,720.000000000000000000,Hrs
+arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa,,RDS,cn-north-1,CNY,172.000000008000000000,200.000000016000000000,GB-Mo
+arn:aws-cn:rds:cn-north-1:151763952152:db:database-1,,RDS,cn-north-1,CNY,172.000000008000000000,200.000000016000000000,GB-Mo
+arn:aws:rds:us-east-1:652694426588:db:cmptest0126,,RDS,us-east-1,USD,98.843066640000000000,411.846111000000000000,Hrs
+arn:aws:rds:us-east-1:652694426588:db:cmptest01261,,RDS,us-east-1,USD,98.842200000000000000,411.842500000000000000,Hrs
+,,CloudWatch,cn-north-1,CNY,97.419936600000000000,1496466.000000000000000000,Metrics
+arn:aws-cn:rds:cn-north-1:151763952152:db:aaaa,,RDS,cn-north-1,CNY,86.400000000000000000,720.000000000000000000,Hrs
